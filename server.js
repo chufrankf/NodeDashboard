@@ -16,6 +16,8 @@ router.use(function (req,res,next) {
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/server'));
 
+//Set constants
+
 //home page location
 router.get("/",function(req,res){
   res.sendFile(views + "index.html");

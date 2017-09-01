@@ -24,14 +24,21 @@
 
 <body>
 
-    <h3>Viewpoint Dashboard</h3>
-    
     <div class="packery">
-        <div class="item">
-          <div class="item-child add-widget">
-          </div>
-        </div>
-      </div>   
+      <div class="item item-child-1">
+      </div>
+    </div>   
+
+    <!-- Add to dashboard button -->
+    <aside>
+      <div class="dashboard-button edit">
+          <img id="dashboard-edit-img" src="/img/edit-circle-icon.png" class="img-fluid" onclick="edit_dashboard_click();">
+      </div>
+      <div class="dashboard-button add">
+          <img id="dashboard-add-img" src="/img/plus-circle-icon.png" class="img-fluid" onclick="add_dashboard_click();">
+      </div>
+  </div>
+    </aside>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
