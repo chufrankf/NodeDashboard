@@ -12,8 +12,9 @@
     <title>Viewpoing Dashboard</title>
     
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">   
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <!-- JQueryUI CSS -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
 
@@ -27,27 +28,27 @@
 
 <body>
 
-    <!-- Navigation Bar -->
-    <div id="nav-placeholder"></div>
+    <div id="wrapper">
 
-    <!-- Dashboard Body-->
-    <div class="grid-stack">
-        <div class="grid-stack-item"
-            data-gs-x="0" data-gs-y="0"
-            data-gs-width="2" data-gs-height="2"
-            data-gs-no-resize="true" data-gs-no-move="true">
-                <div class="grid-stack-item-content item"></div>
-                <span class="glyphicon glyphicon-remove-circle" aria-hidden="false"></span>
+        <!-- Navigation Bar -->
+        <div id="nav-placeholder"></div>
+
+        <!-- Dashboard Body-->
+        <div id="page-content-wrapper">
+            <div class="grid-stack">
+
+            </div>
         </div>
+
     </div>
 
     <!-- Button: Add to dashboard -->
     <aside>
       <div class="dashboard-button edit">
-          <img id="dashboard-edit-img" src="/img/edit-circle-icon.png" class="img-fluid" onclick="edit_dashboard_click();">
+          <img id="dashboard-edit-img" src="/img/edit-circle-icon.png" class="img-fluid" onclick="edit_dashboard_click();" />
       </div>
       <div class="dashboard-button add">
-          <img id="dashboard-add-img" src="/img/plus-circle-icon.png" class="img-fluid" onclick="add_dashboard_click();">
+          <img id="dashboard-add-img" src="/img/plus-circle-icon.png" class="img-fluid"/>
       </div>
   </div>
     </aside>

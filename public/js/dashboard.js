@@ -24,6 +24,9 @@ function startup_display_settings(){
 
   //Hide the add button
   $('#dashboard-add-img').hide();
+
+  //Hide widget edit icons
+  $('.item-icon').hide();
 }
 
 /******
@@ -46,14 +49,25 @@ function check_dashboard_click(){
 }
 
 //Click add-dashboard-button
-function add_dashboard_click(){
+$('.dashboard-button.add').click(function(event) {
 
   //get element
   var $items = get_item_element(null);
 
   //add element
   var grid = $('.grid-stack').data('gridstack');
-  grid.addWidget($items, 0, 0, 2, 2, true);
+  grid.addWidget($items, 0, 0, 1, 2, true);
+});
+
+//Click delete widget
+function delete_widget(id) {
+  var grid = $('.grid-stack').data('gridstack');
+  grid.removeWidget($(id).closest('.grid-stack-item'));
+}
+
+//Click toggle sidebar
+function menu_toggle(id) {
+  $("#wrapper").toggleClass("toggled");
 }
 
 /******
@@ -66,19 +80,25 @@ function edit_mode(enable){
     var grid = $('.grid-stack').data('gridstack');
     grid.movable('.grid-stack-item', true);
     grid.resizable('.grid-stack-item', true);
+
+    //Show widget editing icons
+    $('.item-icon').show();
   }
   else{
     //Disable draggability and resizability of element
     var grid = $('.grid-stack').data('gridstack');
     grid.movable('.grid-stack-item', false);
     grid.resizable('.grid-stack-item', false);
+
+    //Show widget editing icons
+    $('.item-icon').hide();
   }
 }
 
 //Get Item element
 function get_item_element(type){
   // create new item elements
-  var $items = $('<div class="grid-stack-item"> <div class="grid-stack-item-content item"></div></div>');
+  var $items = $('<div class="grid-stack-item"> <div class="grid-stack-item-content item"></div><i class="fa fa-times-circle-o fa-2x item-icon delete-icon" onclick="delete_widget(this);" aria-hidden="true"></i></div>');
   return $items;
 }
 
