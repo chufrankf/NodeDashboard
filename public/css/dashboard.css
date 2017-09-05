@@ -9,37 +9,17 @@ body {
   font-family: sans-serif; 
 }
 
-/*Packery*/
-.packery {
-  max-width: 100%;
-}
-
-.packery:after {
-  content: '';
-  display: block;
-  clear: both;
+/* Dashboard */
+.grid-stack{
+  margin-top: 60px;
 }
 
 /*Widget Items*/
 .item {
-  float: left;
   background: #8CB5E5;
-  border-bottom: 3px solid #ddd;
-  border-right: 3px solid #ddd;
-}
-
-.item.item-child-1{
-  height: 100px;
-  width: 100px;
-  padding: 20px;
 }
 
 /*Drag and Drop*/
-.item.ui-draggable-dragging,
-.item.is-positioning-post-drag {
-  border-color: hsla(0, 0%, 100%, 0.5);
-  background: #ABD7ED;
-}
 
 /*Dashboard Buttons*/
 .dashboard-button{

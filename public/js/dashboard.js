@@ -4,42 +4,25 @@ Initalizers
 //Startup dashboard.js page function
 $(document).ready(function(){
 
-  //Startup Parckery, Dragging, and Resizing.
-  packery_start();
-
+  //Startup Gridstack
+  gridstack_start();
+  
   //Manage Startup Display
   startup_display_settings();
 });
 
 //Start Packery - Handle draggability and resizing
-function packery_start() {
-  var $container = $('.packery').packery({
-    itemSelector: '.item',
-    columnWidth: 100,
-    rowHeight: 100,
-    gutter: 5
-  });
-
-  // get item elements, jQuery-ify them
-  var $itemElems = $( $container.packery('getItemElements') );
-
-  // make item elements draggable
-  $itemElems.draggable({ disabled: true })
-
-  // set resizable to disabled (there is an error with the handle still showing when using resizable({ disabled: true }))
-  $itemElems.resizable();
-  $itemElems.resizable('option', 'disabled', true);
-
-  // bind Draggable events to Packery
-  $container.packery( 'bindUIDraggableEvents', $itemElems );
-  
-  // handle resizing
-  packery_resizing($itemElems, $container);
+function gridstack_start() {
+  //Start gridstack
+  $('.grid-stack').gridstack();  
 }
 
 //Manages what is displayed and their locations at startup
 function startup_display_settings(){
-  //Hide the addd button
+  //Add the Navigation Bar
+  $("#nav-placeholder").load("/views/nav.html");
+
+  //Hide the add button
   $('#dashboard-add-img').hide();
 }
 
@@ -65,20 +48,12 @@ function check_dashboard_click(){
 //Click add-dashboard-button
 function add_dashboard_click(){
 
-  //add element
-  var $container = $('.packery');
+  //get element
   var $items = get_item_element(null);
 
-  //put element in grid
-  $container.prepend($items).packery('prepended', $items);
-  // make item elements draggable
-  $items.draggable();
-  // set resizable to disabled (there is an error with the handle still showing when using resizable({ disabled: true }))
-  $items.resizable();
-  // bind Draggable events to Packery
-  $container.packery( 'bindUIDraggableEvents', $items );
-  // handle resizing
-  packery_resizing($items, $container);
+  //add element
+  var grid = $('.grid-stack').data('gridstack');
+  grid.addWidget($items, 0, 0, 2, 2, true);
 }
 
 /******
@@ -86,45 +61,25 @@ Helpers
 *******/
 //Turn on edit mode
 function edit_mode(enable){
-  // get the packery container
-  var $container = $('.packery')
-  // get item elements, jQuery-ify them
-  var $itemElems = $( $container.packery('getItemElements') );
-  // make item elements draggable/resizeable based on the mode
-  
   if(enable){
-    $itemElems.draggable('enable').resizable('option', 'disabled', false);
+    //Enable draggability and resizability of element
+    var grid = $('.grid-stack').data('gridstack');
+    grid.movable('.grid-stack-item', true);
+    grid.resizable('.grid-stack-item', true);
   }
   else{
-    $itemElems.draggable('disable').resizable('option', 'disabled', true);
+    //Disable draggability and resizability of element
+    var grid = $('.grid-stack').data('gridstack');
+    grid.movable('.grid-stack-item', false);
+    grid.resizable('.grid-stack-item', false);
   }
-  
 }
 
 //Get Item element
 function get_item_element(type){
   // create new item elements
-  var $items = $('<div class="item item-child-1"></div>');
+  var $items = $('<div class="grid-stack-item"> <div class="grid-stack-item-content item"></div></div>');
   return $items;
-}
-
-//Make the element resizable with packery grid
-function packery_resizing(item, grid) {
-  $itemElems = item;
-  $container = grid;
-
-  // handle resizing
-  var resizeTimeout;
-  $itemElems.on( 'resize', function( event, ui ) {
-    // debounce
-    if ( resizeTimeout ) {
-      clearTimeout( resizeTimeout );
-    }
-  
-    resizeTimeout = setTimeout( function() {
-      $container.packery( 'fit', ui.element[0] );
-    }, 100 );
-  });
 }
 
 
