@@ -11,21 +11,18 @@ body {
 
 #wrapper {
   padding-left: 0;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
 }
 
 #sidebar-wrapper {
   z-index: 1000;
   position: fixed;
-  left: 250px;
+  left: 200px;
+  top: 50px;
   width: 0;
   height: 100%;
-  margin-left: -250px;
+  margin-left: -200px;
   overflow-y: auto;
-  background: #000;
+  background: #113159;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -36,6 +33,10 @@ body {
   width: 100%;
   position: absolute;
   padding: 15px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 /* Dashboard */
@@ -83,35 +84,51 @@ body {
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 250px;
+  width: 200px;
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: #30308E;
 }
 
 .sidebar-nav li {
-  position: relative; 
-  line-height: 20px;
-  display: inline-block;
-  width: 100%;
+  text-indent: 20px;
+  line-height: 40px;
+  background-color: transparent;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.sidebar-nav li a {
+  display: block;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+  height: 65px;
+  font-size: 20px;
+  line-height: 44px;
 }
 
 /* Toggling Sidebar */
 #wrapper.toggled {
-  position: relative;
   left: 200px;
 }
 
 #wrapper.toggled #page-content-wrapper {
   position: absolute;
-  margin-right: -200px;
+  margin-left: 200px;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  left: 200px;
   width: 200px;
-  transition: all 0.4s ease 0s;
 }
 
 
