@@ -6,9 +6,6 @@ $(document).ready(function(){
 
   //Startup Gridstack
   gridstack_start();
-  
-  //Manage Startup Display
-  startup_display_settings();
 });
 
 //Start Packery - Handle draggability and resizing
@@ -19,9 +16,6 @@ function gridstack_start() {
 
 //Manages what is displayed and their locations at startup
 function startup_display_settings(){
-  //Add the Navigation Bar
-  $("#nav-placeholder").load("/views/nav.html");
-
   //Hide the add button
   $('#dashboard-add-img').hide();
 
@@ -63,11 +57,6 @@ $('.dashboard-button.add').click(function(event) {
 function delete_widget(id) {
   var grid = $('.grid-stack').data('gridstack');
   grid.removeWidget($(id).closest('.grid-stack-item'));
-}
-
-//Click toggle sidebar
-function menu_toggle(id) {
-  $("#wrapper").toggleClass("toggled");
 }
 
 /******
