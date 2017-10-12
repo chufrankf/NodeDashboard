@@ -8,8 +8,10 @@
 
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        
+        <!-- Font Awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+        
         <!-- JQueryUI CSS -->
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     
@@ -32,7 +34,7 @@
             <div id="page-content-wrapper">
                 <form class="form-signin">
                     <!-- Header -->
-                    <h3 class="form-signin-heading">NDash</h3>
+                    <h3 class="form-signin-heading">Sign Up</h3>
                     
                     <!-- Inputs -->
                     <label for="inputUser" class="sr-only">Username</label>
@@ -42,12 +44,16 @@
                     <input type="email" id="inputEmail" class="form-control" placeholder="Email..." required>
                     
                     <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password..." required>
+                    <input type="password" id="inputPassword" minlength="7" class="form-control" placeholder="Password..." required>
+
+                    <label for="inputPassConfirm" class="sr-only">Password</label>
+                    <input type="password" id="inputPassConfirm" minlength="7" class="form-control" placeholder="Confirm Password..." required>
     
+                    <p id="signin-error" class="error-text"></p>
                     <!-- Options -->
     
                     <!-- Button -->
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+                    <button id="signup-button" class="btn btn-lg btn-primary btn-block" type='button'>Sign In</button>
                 </form>
             </div>
         
@@ -60,6 +66,7 @@
     
         <!-- Scripts -->
         <script type="text/javascript" src="/js/nav.js"></script>        
-        
+        <script type="text/javascript" src="/js/signup.js"></script>       
+
     </body>
 </html>

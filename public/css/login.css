@@ -1,5 +1,5 @@
 body {
-    padding-top: 40px;
+    padding-top: 80px;
     padding-bottom: 40px;
     background-color: #eee;
   }
@@ -8,6 +8,9 @@ body {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
+    background: #ddd;
+    border: 1px solid #000;
+    border-radius: 25px;
   }
   .form-signin .form-signin-heading,
   .form-signin .checkbox {
@@ -28,13 +31,12 @@ body {
   .form-signin .form-control:focus {
     z-index: 2;
   }
-  .form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+  .form-signin input{
+    margin-top: 1px;
+    margin-bottom: 1px;
   }
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+
+p.error-text{
+    color: red;
+    margin-top: 10px;
+}
