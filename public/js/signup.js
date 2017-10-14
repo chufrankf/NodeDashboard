@@ -3,25 +3,31 @@ $(document).ready(function(){
     
 });
 
+//Variables
+var password = document.getElementById("inputPassword");
+var confirm_password = document.getElementById("inputPassConfirm");
 
-//On Click Events
-$('#signup-button').click(function(){
-
-    //Get Inputs
-    var userid = document.getElementById('inputUser').value;
-    var email = document.getElementById('inputEmail').value;
-    var password = document.getElementById('inputPassword').value;
-    var passconfirm = document.getElementById('inputPassConfirm').value;
-
-    //Validate
-    if(!userid || !email || !password || !passconfirm){signInError("Missing Required Fields");}
-    else if(password != passconfirm){signInError("Passwords do not match");}
+//Validations
+function validatePassword(){
+    if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+    } 
     else {
-        
+    confirm_password.setCustomValidity('');
     }
-
-});
-
-function signInError(msg){
-    $('#signin-error').html(msg);
 }
+
+//Events
+password.onchange = validatePassword;
+confirm_password.onchange = validatePassword;
+
+$('#form-signin').submit(function(e){
+    //Prevent default action
+    e.preventDefault();
+
+    //Get the values from the submit
+    var values = {};
+    $.each($('#form-signin').serializeArray(), function(i, field) {
+        values[field.name] = field.value;
+    });    
+});
