@@ -15,11 +15,11 @@ exports.findById = function(req, res) {
 
         db.get().query(sql, function(err, rows){
         if(err) return res.send({success: false, error: err});
-        return res.send(rows);
+        return res.send({success: true, result: rows});
         });
     }
     else{
-        return console.log('Invalid request');
+        return res.send({success: false, error: {code: "INV_REQ"}});
     }
 };
 exports.add = function(req, res) {
@@ -37,11 +37,11 @@ exports.add = function(req, res) {
 
             //Create and send token
             var token = jwt.sign({id: user}, config.token_key, {expiresIn: config.token_length});
-            return res.send({auth: true, token: token});
+            return res.send({success: true, result: token});
         });
     }
     else{
-        return console.log('Invalid request');
+        return res.send({success: false, error: {code: "INV_REQ"}});
     }
     
 };
@@ -64,10 +64,10 @@ exports.login = function(req, res) {
             else if(rows.length == 1 && bcrypt.compareSync(pass, rows[0].pass)){
                 //Create and send token
                 var token = jwt.sign({id: user}, config.token_key, {expiresIn: config.token_length});
-                return res.send({auth: true, token: token});
+                return res.send({success: true, result: token});
             }
             else {
-                return res.send({auth: false, error: 'Invalid Username or Password'});
+                return res.send({success: false, error: {code: 'INV_USR_PASS'}});
             }
         });
     }
