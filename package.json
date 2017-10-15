@@ -5,6 +5,10 @@
     "start" : "node Server.js"
   },
   "dependencies" : {
-    "express" : "latest"
+    "bcryptjs": "^2.4.3",
+    "body-parser": "~1.0.1",
+    "express" : "latest",
+    "jsonwebtoken": "^8.0.1",
+    "mysql": "~2.14.1"
   }
 }
