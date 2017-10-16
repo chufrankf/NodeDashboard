@@ -29,6 +29,7 @@
   width: 60px;
   position: fixed;
   overflow: hidden;
+  z-index: 100;
 }
 .dashboard-button.edit{
   bottom: 20px;

@@ -32,21 +32,19 @@
         
             <!-- Body -->
             <div id="page-content-wrapper">
-                <form class="form-signin">
+                <form id="form-signin" class="form-signin">
                     <!-- Header -->
                     <h3 class="form-signin-heading">Log In</h3>
                     
                     <!-- Inputs -->
-                    <label for="inputUser" class="sr-only">Username</label>
-                    <input type="username" id="inputUser" class="form-control" placeholder="Username..." required autofocus>
-                    <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" minlength="7" class="form-control" placeholder="Password..." required>
+                    <input name="user_id" type="username" id="inputUser" class="form-control" placeholder="Username..." required autofocus>
+                    <input name="password" type="password" id="inputPassword" minlength="7" class="form-control" placeholder="Password..." required>
         
                     <p id="signin-errors" class="error-text"></p>
                     <!-- Options -->
     
                     <!-- Button -->
-                    <button id="login-button" class="btn btn-lg btn-primary btn-block">Sign In</button>
+                    <button type="submit" id="login-button" class="btn btn-lg btn-primary btn-block">Log In</button>
                 </form>
             </div>
         
@@ -58,7 +56,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     
         <!-- Scripts -->
+        <script type="text/javascript" src="/js/helpers/errors.js"></script>
         <script type="text/javascript" src="/js/nav.js"></script>        
-        
+        <script type="text/javascript" src="/js/login.js"></script>       
+
     </body>
 </html>
