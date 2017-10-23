@@ -18,9 +18,14 @@ $('#form-signin').submit(function(e){
 
     ajax_user_login(values, function(res){
         if(res.success){
-            sessionStorage.setItem('access_token',res.token);
-            sessionStorage.setItem('user_id',values.user_id);
-            document.location.href = '/';
+            if(res.result && values.user_id){
+                sessionStorage.setItem('access_token',res.result);
+                sessionStorage.setItem('user_id',values.user_id);
+                document.location.href = '/';
+            }
+            else{
+                throwSigninError(getErrorMessage('INV_USR_PASS'));
+            }
         }
         else{
             throwSigninError(getErrorMessage(res.error.code));

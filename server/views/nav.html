@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
   var user = sessionStorage.user_id;
-  if(user){
+  if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
       $('#user-profile').html('<li class="nav-item"><a class="nav-link" href=“#”><i class="fa fa-user" aria-hidden="true"></i> ' + user + '</a></li>');
   }
   else{

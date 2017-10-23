@@ -31,5 +31,10 @@ module.exports = function(app){
     app.put('/api/user/login', users.login);
     app.put('/api/user/logout', users.logout);
 
+    //DashBoxContents
+    var dashbox = require('./controllers/dashbox_contents')
+    app.post('/api/box/update', auth.verifyToken, dashbox.add);
+
     //Add additional controllers here
+    
 }

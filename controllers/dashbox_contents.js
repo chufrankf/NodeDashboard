@@ -19,8 +19,8 @@ exports.findById = function(req, res) {
         '  AND user_id = ' + db.get().escape(user);
 
         db.get().query(sql, function(err, rows){
-        if(err) return res.send({success: false, error: err});
-        return res.send({success: true, result: rows});
+            if(err) return res.send({success: false, error: err});
+            return res.send({success: true, result: rows});
         });
     }
     else{
@@ -28,65 +28,38 @@ exports.findById = function(req, res) {
     }
 };
 exports.add = function(req, res) {
-    var user = req.user_id;
-    var id = req.body.dash_id;
-    var box_id = req.body.box_id;
-    var box_type = req.body.box_type;
-    var gs_x = req.body.gs_x;
-    var gs_y = req.body.gs_y;
-    var gs_height = req.body.gs_height;
-    var gs_width = req.body.gs_width;
-    var contents = req.body.contents;
+    var user_id = req.user_id;
+    var dash_id = req.body.dash_id;
+    var values = req.body.elements.map(function(x){
+        var box = [];
+        box.push(user_id);
+        box.push(dash_id);
+        box.push(x.box_id);
+        box.push(x.box_type);
+        box.push(x.x);
+        box.push(x.y);
+        box.push(x.height);
+        box.push(x.width);
+        box.push(x.custom_hash);
+        return box;
+    });
 
-    if(user && id && location){
-        var values = [[user, id, box_id, box_type, gs_x, gs_y, gs_height, gs_width, contents]];
-        var sql = 'INSERT INTO dashbox_contents (user_id, dash_id, box_id, box_type, gs_x, gs_y, gs_height, gs_width, contents) ' +
-                  'VALUES ?';
-        
-        db.get().query(sql, [values], function(err, rows){
-            if(err) return res.send({success: false, error: err});
-            return res.send({success: true});
-        });
-    }
-};
-exports.update = function(req, res) {
-    var user = req.user_id;
-    var id = req.body.dash_id;
-    var box_id = req.query.box_id;
-    var box_type = req.body.box_type;
-    var gs_x = req.body.gs_x;
-    var gs_y = req.body.gs_y;
-    var gs_height = req.body.gs_height;
-    var gs_width = req.body.gs_width;
-    var contents = req.body.contents;
-
-    if(user && id && contents){
-        var sql = 'UPDATE users ' +
-                  'SET content = ' + db.get().escape(contents) +
-                  ' WHERE user_id = ' + db.get().escape(user) +
-                  ' AND dash_id = ' + db.get().escape(id)
-                  ' AND box_id = ' + db.get().escape(box_id);
+    if(user_id && typeof dash_id != 'undefined' && dash_id != null){
+        var sql = 'DELETE FROM dashbox_contents ' + 'WHERE user_id = ' + db.get().escape(user_id) + ' AND dash_id = ' + db.get().escape(dash_id);
         
         db.get().query(sql, function(err, rows){
-            if(err) return res.send({success: false, error: err});
-            return res.send({success: true});
-        });
-    }
-};
-exports.delete = function(req, res) {
-    var user = req.user_id;
-    var id = req.query.id;
-    var box_id = req.query.box_id;
-
-    if(user && id && contents){
-        var sql = 'DELETE users ' +
-                  'WHERE user_id = ' + db.get().escape(user) +
-                  ' AND dash_id = ' + db.get().escape(id)
-                  ' AND box_id = ' + db.get().escape(box_id);
-        
-        db.get().query(sql, function(err, rows){
-            if(err) return res.send({success: false, error: err});
-            return res.send({success: true});
+            if(err){
+                return res.send({success: false, error: err});
+            }
+            else if(values){
+                var sql = 'INSERT INTO dashbox_contents (user_id, dash_id, box_id, box_type, gs_x, gs_y, gs_height, gs_width, contents) ' +
+                          'VALUES ?';
+                
+                db.get().query(sql, [values], function(err, rows){
+                    if(err) return res.send({success: false, error: err});
+                    return res.send({success: true});
+                });
+            }
         });
     }
 };

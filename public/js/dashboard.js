@@ -2,9 +2,13 @@
 Initalizers
 *******/
 var mode;
+var dashboard_id;
 
 //Startup dashboard.js page function
 $(document).ready(function(){
+
+
+  if(true) console.log(sessionStorage);
 
   //Declare
   mode = "Display";
@@ -23,7 +27,11 @@ function gridstack_start() {
 }
 
 function startup_defaults(){
+  //Set the dashboard number
+  setDashboardID();
+  //Startup as display mode
   set_edit_mode(false);
+  //Generate the defaults in the modal for editing
   generate_edit_modal();
 }
 
@@ -134,28 +142,37 @@ function set_edit_mode(enable){
 }
 
 function save_element(){
-  var elements = [];
+  //get dashboard id
+  var values = {};
+  values.dash_id = dashboard_id;
+  values.elements = [];
+
   //for each element in the grid stack save to the json
   var grid = $('.grid-stack-item').each(function (){
     var node = $(this).data('_gridstack_node');
     var child = $(this).children('.grid-stack-item-content.item');
     if (typeof node == 'undefined') return;
     else{
-      elements.push({
-        id: node._id,
+      values.elements.push({
+        box_id: node._id,
+        box_type: child.data('item_type') ? child.data('item_type') : "0",
         x: node.x,
         y: node.y,
         height: node.height,
         width: node.width,
-        item_type: child.data('item_type'),
-        custom_hash: child.data('custom_hash')
+        custom_hash: child.data('custom_hash') ? child.data('custom_hash') : ""
       });
     }
   });
-
+  
   //send the element to the database
-  ajax_dashbox_update(elements, function(res){
-
+  ajax_dashbox_update(values, function(res){
+    if(res.success){
+      $.notify("Dashboard Saved", "success");
+    }
+    else{
+      $.notify("Error: " + getErrorMessage(res.error.code), "error");
+    }
   });
 }
 
@@ -193,5 +210,17 @@ function set_inputcustomhash(){
     $('#input-customhash').attr("disabled", true);  
     $('#input-customhash').val('');
     $('label[for=input-customhash]').addClass("disabled");
+  }
+}
+
+function setDashboardID(){
+  var id = getURLSearchParams().get('id');
+  if(id && typeof(id) === 'number' && parseInt(id) > 0){
+    dashboard_id = parseInt(id);
+    document.title = "Dashboard " + id;
+  }
+  else{
+    dashboard_id = 0;
+    document.title = "Dashboard Home";
   }
 }

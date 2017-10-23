@@ -10,6 +10,9 @@ var code_Errors = {
     INV_USR_PASS: "Incorrect username or password"
 };
 
+//Form variables
+var searchParams;
+
 //Item Types
 var dashConstants = {
     None:           {id: 0, name: "None"           ,    href: null},
@@ -27,6 +30,14 @@ var code_EditSelect = [
 /* 
 Functions 
 */
+
+function getURLSearchParams(){
+    if(searchParams) return searchParams;
+    else{
+        searchParams = new URLSearchParams(window.location.search);
+        return searchParams;
+    }
+}
 
 //Errors
 function getErrorMessage(code){
@@ -68,5 +79,13 @@ function ajax_user_add(values, callback){
 }
 
 function ajax_dashbox_update(values, callback){
-    console.log(JSON.stringify(values));
+    $.ajax({
+        type: 'POST',
+        url: '/api/box/update',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: JSON.stringify(values),
+        success: callback
+    });
 }
