@@ -22,3 +22,6 @@
     transition: all 0.5s ease;
   }
   
+  .disabled{
+    color: #ccc;
+  }

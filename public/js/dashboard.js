@@ -13,13 +13,18 @@ $(document).ready(function(){
   gridstack_start();
 
   //Startup Form
-  set_edit_mode(false);
+  startup_defaults();
 });
 
 //Start Packery - Handle draggability and resizing
 function gridstack_start() {
   //Start gridstack
   $('.grid-stack').gridstack();  
+}
+
+function startup_defaults(){
+  set_edit_mode(false);
+  generate_edit_modal();
 }
 
 /******
@@ -35,6 +40,7 @@ function toggle_mode(){
     }
     case "Edit":{
       set_edit_mode(false);
+      save_element();
       mode = "Display";
       break;
     }
@@ -57,6 +63,46 @@ function delete_widget(id){
   var grid = $('.grid-stack').data('gridstack');
   grid.removeWidget($(id).closest('.grid-stack-item'));
 }
+
+//Click edit widget
+function edit_widget(id){
+  //Save the original widget to the modal
+  var widget = $(id).closest('.grid-stack-item');
+  $('#edit_modal').data('trigger', widget);
+
+  //Show the modal
+  $('#edit_modal').modal('show'); 
+}
+
+//Save modal settings
+$('#saveEditItem-button').click(function(e){
+  //Get the values from the form
+  var values = {};
+  $.each($('#form-edititem').serializeArray(), function(i, field) {
+      if(field.name === "item_type" || field.name === "custom_hash"){
+          values[field.name] = field.value;
+      }
+  });
+
+  //Get the original widget
+  widget = $('#edit_modal').data('trigger').children('.grid-stack-item-content.item');
+  widget.data('item_type', values.item_type);
+  widget.data('custom_hash', values.custom_hash);
+
+  //Load the widget with new settings
+  var address = getHTMLAddress(values.item_type);
+  if(address != undefined && address != null){
+    widget.load(address);
+  }
+
+  //Close the modal
+  $('#edit_modal').modal('hide'); 
+});
+
+//Change of select option
+$('#select-itemtypes').change(function(event){
+  set_inputcustomhash();
+});
 
 /******
 Helpers
@@ -87,11 +133,65 @@ function set_edit_mode(enable){
   }
 }
 
+function save_element(){
+  var elements = [];
+  //for each element in the grid stack save to the json
+  var grid = $('.grid-stack-item').each(function (){
+    var node = $(this).data('_gridstack_node');
+    var child = $(this).children('.grid-stack-item-content.item');
+    if (typeof node == 'undefined') return;
+    else{
+      elements.push({
+        id: node._id,
+        x: node.x,
+        y: node.y,
+        height: node.height,
+        width: node.width,
+        item_type: child.data('item_type'),
+        custom_hash: child.data('custom_hash')
+      });
+    }
+  });
+
+  //send the element to the database
+  ajax_dashbox_update(elements, function(res){
+
+  });
+}
+
 //Get Item element
 function get_item_element(type){
   // create new item elements
-  var $items = $('<div class="grid-stack-item"> <div class="grid-stack-item-content item"></div><i class="fa fa-times-circle-o fa-2x item-icon delete-icon" onclick="delete_widget(this)" aria-hidden="true"></i></div>');
+  var $items = $('<div class="grid-stack-item">' + 
+                  '<div class="grid-stack-item-content item"></div>' +
+                  '<i class="fa fa-wrench fa-lg item-icon edit-icon" onclick="edit_widget(this)" aria-hidden="true"></i>' +
+                  '<i class="fa fa-times fa-lg item-icon delete-icon" onclick="delete_widget(this)" aria-hidden="true"></i>' + 
+                 '</div>');
   return $items;
 }
 
+function generate_edit_modal(){
+  //Populate Item Type Selection
+  var options = '';
 
+  $.each(code_EditSelect, function(index, value){
+    options += '<option value="'+ value.id + '">' + value.name + '</option>';    
+  })
+  $('#select-itemtypes').append(options);
+
+  //Intialize hash input
+  set_inputcustomhash();
+}
+
+function set_inputcustomhash(){
+  var selected = $('#select-itemtypes option:selected').val();
+  if( selected == dashConstants.CustomHTML.id){
+    $('#input-customhash').attr("disabled", false); 
+    $('label[for=input-customhash]').removeClass("disabled");
+  }
+  else{
+    $('#input-customhash').attr("disabled", true);  
+    $('#input-customhash').val('');
+    $('label[for=input-customhash]').addClass("disabled");
+  }
+}

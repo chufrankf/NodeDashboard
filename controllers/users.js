@@ -28,11 +28,11 @@ exports.add = function(req, res) {
     var pass = req.body.password;
 
     if(user && email && pass){
-        var values = [user, email, bcrypt.hashSync(req.body.password, 8)];
+        var values = [[user, email, bcrypt.hashSync(req.body.password, 8)]];
         var sql = 'INSERT INTO users (user_id, email, pass) ' +
-                  'VALUES (?,?,?)';
+                  'VALUES ?';
         
-        db.get().query(sql, values, function(err, rows){
+        db.get().query(sql, [values], function(err, rows){
             if(err) return res.send({success: false, error: err});
 
             //Create and send token

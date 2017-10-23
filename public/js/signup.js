@@ -33,21 +33,14 @@ $('#form-signin').submit(function(e){
         }
     });    
 
-    $.ajax({
-        type: 'POST',
-        url: '/api/user/add',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: JSON.stringify(values),
-        success: function(res){
-            if(res.success){
-                sessionStorage.setItem('access_token',res.token);
-                sessionStorage.setItem('user_id',values.user_id);
-                document.location.href = '/';
-            }
-            else{
-                throwSigninError(getErrorMessage(res.error.code));
-            }
+    ajax_user_add(values, function(res){
+        if(res.success){
+            sessionStorage.setItem('access_token',res.token);
+            sessionStorage.setItem('user_id',values.user_id);
+            document.location.href = '/';
+        }
+        else{
+            throwSigninError(getErrorMessage(res.error.code));
         }
     });
 });

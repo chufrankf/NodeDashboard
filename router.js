@@ -32,4 +32,8 @@ module.exports = function(app){
     app.put('/api/user/logout', users.logout);
 
     //Add additional controllers here
+
+    //Testing
+    var userviews = __dirname + '/public/user/global/views/'
+    app.get("/user/global/glCalendar.html",function(req,res){res.sendFile(userviews + "glCalendar.html")});
 }
