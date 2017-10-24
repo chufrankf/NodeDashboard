@@ -10,8 +10,8 @@ exports.findAll = function(req, res) {
 
 //Actions
 exports.findById = function(req, res) {
-    var id = req.query.id;
     var user = req.user_id;
+    var id = req.query.dash_id;
     
     if(id && user){
         var sql = 'SELECT * FROM dashbox_contents ' +

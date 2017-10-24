@@ -53,6 +53,36 @@ function getHTMLAddress(id){
     return type.href;
 }
 
+//Validate
+function isNullOrUndefined(some_variable){
+    return typeof(some_variable) === 'undefined' || some_variable == null;
+}
+
+//Next Grid Item
+function getNextGridIndex(arr){
+    //If there is nothing in list, return 0
+    if(arr.length === 0) return 0;
+
+    //If the expected sum is equal to the sum
+    //(n-1)n/2 where n=length ex. (5)6/2 = 15
+    //total ex. 5+4+3+2+1+0 = 15
+    //Get the next number as the length
+    var sum = arr.reduce(function(a, b) { return a + b;}, 0);
+    var expected_sum = (arr.length - 1)*arr.length/2;
+    if(sum == expected_sum) return arr.length;
+
+    //Otherwise we find the missing number
+    arr.sort();
+    for(i = 0; i < arr.length; i++){
+        if(arr[i] != i) return i;
+    }
+
+    //This should not be hit
+    //But as last resort return the maximum + 1
+    var max = arr.reduce(function(a, b) { return Math.max(a, b);});
+    return max + 1;
+}
+
 /*
 API Callbacks
 */
@@ -86,6 +116,18 @@ function ajax_dashbox_update(values, callback){
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         data: JSON.stringify(values),
+        success: callback
+    });
+}
+
+function ajax_dashbox_get(values, callback){
+    $.ajax({
+        type: 'GET',
+        url: '/api/box/get',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: values,
         success: callback
     });
 }

@@ -34,6 +34,7 @@ module.exports = function(app){
     //DashBoxContents
     var dashbox = require('./controllers/dashbox_contents')
     app.post('/api/box/update', auth.verifyToken, dashbox.add);
+    app.get('/api/box/get', auth.verifyToken, dashbox.findById);
 
     //Add additional controllers here
     

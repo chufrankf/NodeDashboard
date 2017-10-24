@@ -6,10 +6,6 @@ var dashboard_id;
 
 //Startup dashboard.js page function
 $(document).ready(function(){
-
-
-  if(true) console.log(sessionStorage);
-
   //Declare
   mode = "Display";
 
@@ -33,6 +29,8 @@ function startup_defaults(){
   set_edit_mode(false);
   //Generate the defaults in the modal for editing
   generate_edit_modal();
+  //Fill the display with griditems
+  fill_dashboard();
 }
 
 /******
@@ -57,13 +55,13 @@ function toggle_mode(){
 
 //Click add-dashboard-button
 $('#dashboard-add-img').click(function(event) {
+  //get next index
+  var indexes = [];
+  $('.grid-stack-item').each(function(){
+    indexes.push(parseInt($(this).data('gs-id')));
+  });
 
-  //get element
-  var $items = get_item_element(null);
-
-  //add element
-  var grid = $('.grid-stack').data('gridstack');
-  grid.addWidget($items, 0, 0, 1, 2, true);
+  add_element(0, 0, 2, 2, true, null, null, null, null, getNextGridIndex(indexes), null);
 });
 
 //Click delete widget
@@ -77,6 +75,9 @@ function edit_widget(id){
   //Save the original widget to the modal
   var widget = $(id).closest('.grid-stack-item');
   $('#edit_modal').data('trigger', widget);
+
+  //Reset form
+  $('#form-edititem')[0].reset();
 
   //Show the modal
   $('#edit_modal').modal('show'); 
@@ -94,14 +95,7 @@ $('#saveEditItem-button').click(function(e){
 
   //Get the original widget
   widget = $('#edit_modal').data('trigger').children('.grid-stack-item-content.item');
-  widget.data('item_type', values.item_type);
-  widget.data('custom_hash', values.custom_hash);
-
-  //Load the widget with new settings
-  var address = getHTMLAddress(values.item_type);
-  if(address != undefined && address != null){
-    widget.load(address);
-  }
+  update_widgethtml(widget, values);
 
   //Close the modal
   $('#edit_modal').modal('hide'); 
@@ -154,7 +148,7 @@ function save_element(){
     if (typeof node == 'undefined') return;
     else{
       values.elements.push({
-        box_id: node._id,
+        box_id: $(this).data('gs-id'),
         box_type: child.data('item_type') ? child.data('item_type') : "0",
         x: node.x,
         y: node.y,
@@ -164,7 +158,7 @@ function save_element(){
       });
     }
   });
-  
+
   //send the element to the database
   ajax_dashbox_update(values, function(res){
     if(res.success){
@@ -177,20 +171,43 @@ function save_element(){
 }
 
 //Get Item element
-function get_item_element(type){
+function get_item_element(values){
   // create new item elements
   var $items = $('<div class="grid-stack-item">' + 
                   '<div class="grid-stack-item-content item"></div>' +
                   '<i class="fa fa-wrench fa-lg item-icon edit-icon" onclick="edit_widget(this)" aria-hidden="true"></i>' +
                   '<i class="fa fa-times fa-lg item-icon delete-icon" onclick="delete_widget(this)" aria-hidden="true"></i>' + 
                  '</div>');
+  if(values) update_widgethtml($items.children('.grid-stack-item-content.item'), values);
   return $items;
+}
+
+function add_element(x, y, width, height, autoPosition, minWidth, maxWidth, minHeight, maxHeight, id, values){
+  //get element
+  var $items = get_item_element(values);
+
+  //add element
+  var grid = $('.grid-stack').data('gridstack');
+  grid.addWidget($items, x, y, width, height, autoPosition, minWidth, maxWidth, minHeight, maxHeight, id);
+}
+
+function update_widgethtml(widget, values){
+  if(!isNullOrUndefined(values.custom_hash)){
+    widget.data('custom_hash', values.custom_hash);
+  }
+  if(!isNullOrUndefined(values.item_type)){
+    widget.data('item_type', values.item_type);
+    //Load the widget with new settings
+    var address = getHTMLAddress(values.item_type);
+    if(address != undefined && address != null){
+      widget.load(address);
+    }
+  } 
 }
 
 function generate_edit_modal(){
   //Populate Item Type Selection
   var options = '';
-
   $.each(code_EditSelect, function(index, value){
     options += '<option value="'+ value.id + '">' + value.name + '</option>';    
   })
@@ -223,4 +240,21 @@ function setDashboardID(){
     dashboard_id = 0;
     document.title = "Dashboard Home";
   }
+}
+
+function fill_dashboard(){
+  var values = {dash_id: dashboard_id};
+  ajax_dashbox_get(values, function(res){
+    if(res.success){
+      res.result.forEach(function(x){
+        set_edit_mode(true);
+        add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type});
+        set_edit_mode(false);
+      });
+      $.notify("Dashboard Loaded", "success");
+    }
+    else{
+      $.notify("Error: " + getErrorMessage(res.error.code), "error");
+    }
+  });
 }
