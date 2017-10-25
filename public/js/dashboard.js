@@ -248,7 +248,7 @@ function fill_dashboard(){
     if(res.success){
       res.result.forEach(function(x){
         set_edit_mode(true);
-        add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type});
+        add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type, custom_hash: x.custom_hash});
         set_edit_mode(false);
       });
       $.notify("Dashboard Loaded", "success");
