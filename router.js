@@ -6,9 +6,7 @@ module.exports = function(app){
     app.get("/",function(req,res){res.sendFile(views + "index.html")});
 
     //Links
-    app.get("/login",function(req,res){res.sendFile(views + "login.html")});
-    app.get("/signup",function(req,res){res.sendFile(views + "signup.html")});
-
+    app.get("/signin",function(req,res){res.sendFile(views + "login_signin.html")});
     app.get("/api",function(req, res){res.json({ message: 'dash.api' });});
 
     //Authorization

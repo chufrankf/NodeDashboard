@@ -1,0 +1,83 @@
+
+body {
+  padding-top: 80px;
+  padding-bottom: 40px;
+  background-color: #FDEEE8;
+}
+
+.panel-login {
+  border: none;
+  background-color: #1A5276;
+  -webkit-box-shadow: 0px 0px 49px 14px rgba(188,190,194,0.39);
+  -moz-box-shadow: 0px 0px 49px 14px rgba(188,190,194,0.39);
+  box-shadow: 0px 0px 49px 14px rgba(188,190,194,0.39);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.panel-login h2{
+  color: #fff;
+  font-size: 25px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.panel-login>.panel-heading {
+  color: #000;
+  background-color: #FDEEE8;
+  text-align:center;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin: 10px 0px;
+}
+.panel-login>.panel-heading .tabs{
+  padding: 0;
+  width: 100%;
+  padding: 20px 30px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 300;
+  font-size: 16px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+.panel-login>.panel-heading .tabs.login {
+  text-align: right;
+  border-top-left-radius: 5px;
+}
+.panel-login>.panel-heading .tabs.register {
+  text-align: left;
+  border-top-right-radius: 5px;
+}
+.panel-login>.panel-heading .tabs.active{
+  color: #fff;
+  background-color: #1A5276;
+}
+
+.panel-login>.panel-body {
+  padding: 30px;
+}
+
+.form-control.btn {
+  background-color: #E8E9EC;
+  outline: none;
+  color: #2D3B55;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+.form-control.btn:hover,
+.form-control.btn:focus {
+  color: #fff;
+  background-color: #2D3B55;
+}
