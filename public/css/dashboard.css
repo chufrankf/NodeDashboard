@@ -49,22 +49,36 @@ body {
 }
 
 /* Modal */
-.modal-header {
-padding-bottom: 5px;
+.modal-body {
+  padding: 0;
+  background-color: #FDEEE8;
 }
 
-.modal-footer {
-    padding: 0;
-}
-  
-.modal-footer .btn-group button {
-height:40px;
-border-top-left-radius : 0;
-border-top-right-radius : 0;
-border: none;
-border-right: 1px solid #ddd;
+#edit_modal #select-itemtypes {
+  border:0px;
+  outline:0px;
+  height: 40px;
+  width: 100%;
+  height: 100%;
+  background-color: #1A5276;
+  color: #fff;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
 }
 
-.modal-footer .btn-group:last-child > button {
-border-right: 0;
+#edit_modal label.left-align {
+ text-align: left;
+ line-height: 40px;
+ padding-left: 10px;
+ margin: 0px;
+}
+
+#edit_modal p.left-align {
+ text-align: left;
+ padding-left: 10px;
+}
+
+#edit_modal .modal-body div.buttons {
+ margin: 0px
 }

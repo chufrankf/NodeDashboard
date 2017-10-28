@@ -76,8 +76,8 @@ function edit_widget(id){
   var widget = $(id).closest('.grid-stack-item');
   $('#edit_modal').data('trigger', widget);
 
-  //Reset form
-  $('#form-edititem')[0].reset();
+  //Set modal attributes and defaults
+  set_modal_defaults(widget.children('.grid-stack-item-content.item'));
 
   //Show the modal
   $('#edit_modal').modal('show'); 
@@ -103,7 +103,7 @@ $('#saveEditItem-button').click(function(e){
 
 //Change of select option
 $('#select-itemtypes').change(function(event){
-  set_inputcustomhash();
+  set_modal_defaults(null);
 });
 
 /******
@@ -159,15 +159,21 @@ function save_element(){
     }
   });
 
-  //send the element to the database
-  ajax_dashbox_update(values, function(res){
-    if(res.success){
-      $.notify("Dashboard Saved", "success");
-    }
-    else{
-      $.notify("Error: " + getErrorMessage(res.error.code), "error");
-    }
-  });
+  if(isLoggedIn()) {
+    //send the element to the database
+    ajax_dashbox_update(values, function(res){
+      if(res.success){
+        $.notify("Dashboard Saved", "success");
+      }
+      else{
+        $.notify("Error: " + getErrorMessage(res.error.code), "error");
+      }
+    });
+  }
+  else {
+    $.notify('Unable to save: Not Logged In');
+  }
+   
 }
 
 //Get Item element
@@ -212,22 +218,34 @@ function generate_edit_modal(){
     options += '<option value="'+ value.id + '">' + value.name + '</option>';    
   })
   $('#select-itemtypes').append(options);
-
-  //Intialize hash input
-  set_inputcustomhash();
 }
 
-function set_inputcustomhash(){
-  var selected = $('#select-itemtypes option:selected').val();
-  if( selected == dashConstants.CustomHTML.id){
-    $('#input-customhash').attr("disabled", false); 
-    $('label[for=input-customhash]').removeClass("disabled");
+function set_modal_defaults(widget){
+  var selected = 0;
+  var hash = '';
+
+  if(isNullOrUndefined(widget)){
+    selected = $('#select-itemtypes option:selected').val();
   }
-  else{
-    $('#input-customhash').attr("disabled", true);  
-    $('#input-customhash').val('');
-    $('label[for=input-customhash]').addClass("disabled");
+  else {
+    //Get data from element
+    hash = isNullOrUndefined(widget.data('custom_hash')) ? hash : widget.data('custom_hash');
+    selected = isNullOrUndefined(widget.data('item_type')) ? selected : widget.data('item_type');
+
+    //Set the custom hash value
+    $('#input-customhash').val(hash);
+    $('#select-itemtypes').val(selected);
   }
+  
+  //Show or hide based on selection
+  $('.edit-modal-form-switch').each(function() {
+    if($(this).attr('key') == selected) {
+      $(this).show();
+    }
+    else {
+      $(this).hide();
+    }
+  });
 }
 
 function setDashboardID(){
@@ -243,18 +261,21 @@ function setDashboardID(){
 }
 
 function fill_dashboard(){
-  var values = {dash_id: dashboard_id};
-  ajax_dashbox_get(values, function(res){
-    if(res.success){
-      res.result.forEach(function(x){
-        set_edit_mode(true);
-        add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type, custom_hash: x.custom_hash});
-        set_edit_mode(false);
-      });
-      $.notify("Dashboard Loaded", "success");
-    }
-    else{
-      $.notify("Error: " + getErrorMessage(res.error.code), "error");
-    }
-  });
+  if(isLoggedIn()){
+    var values = {dash_id: dashboard_id};
+
+    ajax_dashbox_get(values, function(res){
+      if(res.success){
+        res.result.forEach(function(x){
+          set_edit_mode(true);
+          add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type, custom_hash: x.custom_hash});
+          set_edit_mode(false);
+        });
+        $.notify("Dashboard Loaded", "success");
+      }
+      else{
+        $.notify("Error: " + getErrorMessage(res.error.code), "error");
+      }
+    });
+  }
 }

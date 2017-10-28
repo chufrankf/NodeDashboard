@@ -2,29 +2,41 @@
 
 /* Used for all forms */
 * { 
-    box-sizing: border-box; 
-  }
-  
-  body { 
-    background: #eee;
-    font-family: 'Roboto', sans-serif;
-    font-weight:100;
-  }
-  
-  #wrapper {
-    padding-left: 0;
-  }
-  
-  #page-content-wrapper {
-    width: 100%;
-    position: absolute;
-    padding: 15px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-  }
-  
-  .disabled{
-    color: #ccc;
-  }
+  box-sizing: border-box; 
+}
+
+body { 
+  background: #eee;
+  font-family: 'Roboto', sans-serif;
+  font-weight:100;
+}
+
+#wrapper {
+  padding-left: 0;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.disabled{
+  color: #ccc;
+}
+
+select.full-div {
+  height: 100%;
+  width: 100%;
+}
+
+label.center {
+  text-align: center;
+  line-height: 40px;
+  padding: 0px;
+  margin: 0px;
+}

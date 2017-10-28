@@ -83,6 +83,11 @@ function getNextGridIndex(arr){
     return max + 1;
 }
 
+function isLoggedIn(){
+    if(sessionStorage.access_token && sessionStorage.access_token != 'undefined') return true;
+    else return false;
+}
+
 /*
 API Callbacks
 */
