@@ -163,15 +163,15 @@ function save_element(){
     //send the element to the database
     ajax_dashbox_update(values, function(res){
       if(res.success){
-        $.notify("Dashboard Saved", "success");
+        $.notify("Dashboard Saved", {position: 'bottom left', className: 'success'});
       }
       else{
-        $.notify("Error: " + getErrorMessage(res.error.code), "error");
+        $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
       }
     });
   }
   else {
-    $.notify('Unable to save: Not Logged In');
+    $.notify('Unable to save: Not Logged In', {position: 'bottom left', className: 'success'});
   }
    
 }
@@ -271,10 +271,10 @@ function fill_dashboard(){
           add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type, custom_hash: x.custom_hash});
           set_edit_mode(false);
         });
-        $.notify("Dashboard Loaded", "success");
+        $.notify("Dashboard Loaded",  {position: 'bottom left', className: 'success'});
       }
       else{
-        $.notify("Error: " + getErrorMessage(res.error.code), "error");
+        $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
       }
     });
   }

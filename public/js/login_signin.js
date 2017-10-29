@@ -55,7 +55,7 @@ $('#register-form').submit(function(e){
             document.location.href = '/';
         }
         else{
-            $('#register-submit').notify(getErrorMessage(res.error.code), 'error', {position: 'right', classname: 'error'});
+            $('#register-submit').notify(getErrorMessage(res.error.code), {position: 'right', className:'error' });
         }
     });
 });
@@ -80,11 +80,11 @@ $('#login-form').submit(function(e){
                 document.location.href = '/';
             }
             else{
-                $('#login-submit').notify(getErrorMessage('INV_USR_PASS'), {position: 'right', classname: 'error'});
+                $('#login-submit').notify(getErrorMessage('INV_USR_PASS'), {position: 'right', className: 'error'});
             }
         }
         else{
-            $('#login-submit').notify(getErrorMessage(res.error.code), {position: 'right', classname: 'error'});
+            $('#login-submit').notify(getErrorMessage(res.error.code), {position: 'right', className: 'error'});
         }
     });
 });

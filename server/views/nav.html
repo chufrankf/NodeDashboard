@@ -1,10 +1,10 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <i class="fa fa-bars navbar-brand" onclick="menu_toggle(this);"></i>
     <a class="navbar-brand" href="/">
-      <i class="fa fa-bars" onclick="menu_toggle(this);"></i>
       Node.js Dashboard
     </a>
    <div class="collapse navbar-collapse">
-     <ul class="navbar-nav mr-auto">
+     <ul class="nav navbar-nav mr-auto">
        <li class="nav-item">
          <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
        </li>
@@ -19,8 +19,25 @@
        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
      </form>
-     <ul id="user-profile" class="navbar-nav mr-auto">
-      
+     <ul class="nav navbar-nav navbar-right" id="user-profile">
+        <li id="user-profile-nav" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span id="profile-link"></span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i> Preferences</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a class="dropdown-item signout-click" href="/signin" ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+            </ul>
+        </li>
+        <li id="user-signin-nav" class="nav-item">
+          <a class="nav-link" href="/signin">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>  
+            Login/Signup
+          </a>
+        </li>
     </ul>
    </div>
  </nav>
@@ -31,11 +48,20 @@
   </nav>
 
 <script type="text/javascript">
-  var user = sessionStorage.user_id;
-  if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
-      $('#user-profile').html('<li class="nav-item"><a class="nav-link" href=“#”><i class="fa fa-user" aria-hidden="true"></i> ' + user + '</a></li>');
-  }
-  else{
-      $('#user-profile').html('<li class="nav-item"><a class="nav-link" href="/signin"><i class="fa fa-sign-in" aria-hidden="true"></i>  Login/Signup</a></li>');
-  }
+  $(document).ready(function(){
+    var user = sessionStorage.user_id;
+    if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
+        $('#user-profile-nav').show();
+        $('#profile-link').text('Welcome, ' + user);
+        $('#user-signin-nav').hide();
+    }
+    else{
+        $('#user-signin-nav').show();
+        $('#user-profile-nav').hide();
+    }
+
+    $(".signout-click").click(function () {
+      sessionStorage.clear();
+    });
+  });
 </script>
