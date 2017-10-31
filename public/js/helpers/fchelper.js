@@ -17,7 +17,7 @@ var searchParams;
 var dashConstants = {
     None:           {id: 0, name: "None"           ,    href: null},
     CustomHTML:     {id: 1, name: "Custom HTML"    ,    href: null},
-    GoogleCalendar: {id: 2, name: "Google Calendar",    href:"/user/global/googleCalendar/glCalendar.html"},
+    GoogleCalendar: {id: 2, name: "Google Calendar",    href:"/user/global/views/calendar.html"},
     RequestList:    {id: 3, name: "Request List"   ,    href: null}
 };
 var code_EditSelect = [
