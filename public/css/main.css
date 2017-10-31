@@ -1,9 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700,500);
 
 /* Used for all forms */
-* { 
-  box-sizing: border-box; 
-}
 
 body { 
   background: #eee;

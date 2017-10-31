@@ -95,6 +95,9 @@ $('#saveEditItem-button').click(function(e){
 
   //Get the original widget
   widget = $('#edit_modal').data('trigger').children('.grid-stack-item-content.item');
+
+  //Update the div
+  update_widgetsize($('#edit_modal').data('trigger'), values);
   update_widgethtml(widget, values);
 
   //Close the modal
@@ -197,6 +200,15 @@ function add_element(x, y, width, height, autoPosition, minWidth, maxWidth, minH
   grid.addWidget($items, x, y, width, height, autoPosition, minWidth, maxWidth, minHeight, maxHeight, id);
 }
 
+function update_widgetsize(widget, values){
+  if(!isNullOrUndefined(values.item_type)){
+    var grid = $('.grid-stack').data('gridstack');
+    var size = getContentData(values.item_type).dimensions;
+    if(!isNullOrUndefined(size))
+      grid.update($('#edit_modal').data('trigger'),null,null,size.width,size.height);
+  }
+}
+
 function update_widgethtml(widget, values){
   if(!isNullOrUndefined(values.custom_hash)){
     widget.data('custom_hash', values.custom_hash);
@@ -204,7 +216,7 @@ function update_widgethtml(widget, values){
   if(!isNullOrUndefined(values.item_type)){
     widget.data('item_type', values.item_type);
     //Load the widget with new settings
-    var address = getHTMLAddress(values.item_type);
+    var address = getContentData(values.item_type).href;
     if(address != undefined && address != null){
       widget.load(address);
     }
