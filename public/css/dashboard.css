@@ -6,6 +6,9 @@ body {
 .grid-stack{
   margin-top: 60px;
 }
+.grid-stack-item-content{
+  padding: 1px;
+}
 
 /*Widget Items*/
 .item {
