@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS dashbox_contents (
 ,gs_height SMALLINT UNSIGNED NOT NULL
 ,gs_width SMALLINT UNSIGNED NOT NULL
 ,custom_hash VARCHAR(30) NULL
+,webpage VARCHAR(512) NULL
 ,primary key(dash_id, user_id, box_id)
 );
 

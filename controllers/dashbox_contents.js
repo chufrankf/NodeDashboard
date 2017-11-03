@@ -41,6 +41,7 @@ exports.add = function(req, res) {
         box.push(x.height);
         box.push(x.width);
         box.push(x.custom_hash);
+        box.push(x.webpage);
         return box;
     });
 
@@ -52,7 +53,7 @@ exports.add = function(req, res) {
                 return res.send({success: false, error: err});
             }
             else if(values){
-                var sql = 'INSERT INTO dashbox_contents (user_id, dash_id, box_id, box_type, gs_x, gs_y, gs_height, gs_width, custom_hash) ' +
+                var sql = 'INSERT INTO dashbox_contents (user_id, dash_id, box_id, box_type, gs_x, gs_y, gs_height, gs_width, custom_hash, webpage) ' +
                           'VALUES ?';
                 
                 db.get().query(sql, [values], function(err, rows){

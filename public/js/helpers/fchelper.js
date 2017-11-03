@@ -15,16 +15,18 @@ var searchParams;
 
 //Item Types
 var dashConstants = {
-    None:           {id: 0, name: "None"           ,    href: null},
-    CustomHTML:     {id: 1, name: "Custom HTML"    ,    href: null},
-    GoogleCalendar: {id: 2, name: "Google Calendar",    href:"/user/global/calendar/calendar.html", dimensions:{width: 6, height: 6}},
-    RequestList:    {id: 3, name: "Request List"   ,    href: null}
+    None:           {id: 0, name: "None"            ,    href: null},
+    CustomHTML:     {id: 1, name: "Custom HTML"     ,    href: null},
+    GoogleCalendar: {id: 2, name: "Google Calendar" ,    href:"/user/global/calendar/calendar.html", dimensions:{width: 6, height: 6}},
+    RequestList:    {id: 3, name: "Request List"    ,    href: null},
+    EmbeddedWebpage:{id: 4, name: "Embedded Webpage",    href: null}
 };
 var code_EditSelect = [
     dashConstants.None,
     dashConstants.CustomHTML,
     dashConstants.GoogleCalendar,
-    dashConstants.RequestList
+    dashConstants.RequestList,
+    dashConstants.EmbeddedWebpage
 ];
 
 /* 
