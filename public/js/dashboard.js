@@ -93,6 +93,10 @@ $('#saveEditItem-button').click(function(e){
       }
   });
 
+  switch(parseInt(values.item_type)){
+    case dashConstants.EmbeddedWebpage.id: values["field01"] = values.webpage; break;
+  }
+
   //Get the original widget
   widget = $('#edit_modal').data('trigger').children('.grid-stack-item-content.item');
 
@@ -158,7 +162,7 @@ function save_element(){
         height: node.height,
         width: node.width,
         custom_hash: child.data('custom_hash') ? child.data('custom_hash') : "",
-        webpage: child.data('webpage') ? child.data('webpage') : ""
+        field01: child.data('field01') ? child.data('field01') : ""
       });
     }
   });
@@ -217,8 +221,8 @@ function update_widgethtml(widget, values){
   if(!isNullOrUndefined(values.item_type)){
     widget.data('item_type', values.item_type);
   } 
-  if(!isNullOrUndefined(values.webpage)){
-    widget.data('webpage', values.webpage);
+  if(!isNullOrUndefined(values.field01)){
+    widget.data('field01', values.field01);
   }
 
   //Load the widget with new settings
@@ -228,9 +232,14 @@ function update_widgethtml(widget, values){
     if(!isNullOrUndefined(address)){
       widget.load(address);
     }
-    //Otherwise load webpage
-    else if (!isNullOrUndefined(values.webpage) && values.item_type == dashConstants.EmbeddedWebpage.id){
-      widget.html('<object data="' + values.webpage + '" class="embedded-webpage"></object>');
+    //Otherwise load based on item type
+    else{
+      switch(parseInt(values.item_type)){
+        case dashConstants.EmbeddedWebpage.id: 
+          if (!isNullOrUndefined(values.field01)) { 
+            widget.html('<object data="' + values.field01 + '" class="embedded-webpage"></object>');
+          } break;
+      }
     }
   }
 }
@@ -247,7 +256,7 @@ function generate_edit_modal(){
 function set_modal_defaults(widget){
   var selected = 0;
   var hash = '';
-  var webpage = '';
+  var field01 = '';
 
   if(isNullOrUndefined(widget)){
     selected = $('#select-itemtypes option:selected').val();
@@ -256,12 +265,14 @@ function set_modal_defaults(widget){
     //Get data from element
     hash = isNullOrUndefined(widget.data('custom_hash')) ? hash : widget.data('custom_hash');
     selected = isNullOrUndefined(widget.data('item_type')) ? selected : widget.data('item_type');
-    webpage = isNullOrUndefined(widget.data('webpage')) ? webpage : widget.data('webpage');
+    field01 = isNullOrUndefined(widget.data('field01')) ? field01 : widget.data('field01');
 
     //Set the custom hash value
     $('#input-customhash').val(hash);
     $('#select-itemtypes').val(selected);
-    $('#input-webpage').val(webpage);
+    switch(selected){
+      case dashConstants.EmbeddedWebpage.id: $('#input-webpage').val(field01); break;
+    }
   }
   
   //Show or hide based on selection
@@ -295,7 +306,7 @@ function fill_dashboard(){
       if(res.success){
         res.result.forEach(function(x){
           set_edit_mode(true);
-          add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type, custom_hash: x.custom_hash, webpage: x.webpage});
+          add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type, custom_hash: x.custom_hash, field01: x.field01});
           set_edit_mode(false);
         });
         $.notify("Dashboard Loaded",  {position: 'bottom left', className: 'success'});
