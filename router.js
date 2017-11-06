@@ -7,17 +7,16 @@ module.exports = function(app){
 
     //Links
     app.get("/signin",function(req,res){res.sendFile(views + "login_signin.html")});
+    app.get("/user/settings",function(req,res){res.sendFile(views + "user_settings.html")});
+
+    //API
     app.get("/api",function(req, res){res.json({ message: 'dash.api' });});
 
     //Authorization
     var auth = require('./controllers/auth');
     
-    //Dash Contents
-    var dashcontents = require('./controllers/dash_contents');
-    app.get('/api/cont/getall', auth.verifyToken, dashcontents.findAll);
-    app.get('/api/cont/get', auth.verifyToken, dashcontents.findById);
-    app.post('/api/cont/update', auth.verifyToken, dashcontents.update);
-    app.delete('/api/cont/delete', auth.verifyToken, dashcontents.delete);
+    //Dashboards
+    var dashboards = require('./controllers/dashboards');
 
     //Users
     var users = require('./controllers/users');
@@ -28,6 +27,11 @@ module.exports = function(app){
     app.post('/api/user/add', users.add);
     app.put('/api/user/login', users.login);
     app.put('/api/user/logout', users.logout);
+
+    //User Settings
+    var user_settings = require('./controllers/user_settings');
+    app.post('/api/user/settings/update', auth.verifyToken, user_settings.update);
+    app.get('/api/user/settings/get', auth.verifyToken, user_settings.findById);
 
     //DashBoxContents
     var dashbox = require('./controllers/dashbox_contents')

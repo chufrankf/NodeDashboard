@@ -5,10 +5,9 @@
 * user_id - id of the user
 * contents - NO_LONGER_USED
 */
-CREATE TABLE IF NOT EXISTS dash_contents (
+CREATE TABLE IF NOT EXISTS dashboards (
  dash_id TINYINT UNSIGNED NOT NULL
 ,user_id VARCHAR(30) NOT NULL
-,contents TEXT
 ,primary key(dash_id, user_id)
 );
 
@@ -52,4 +51,27 @@ CREATE TABLE IF NOT EXISTS users (
 ,email VARCHAR(60) NOT NULL
 ,primary key(user_id)
 ,unique (email)
+);
+
+/*
+* Create user settings
+* For each user created there will be settings for the user. If not use the default
+*/
+CREATE TABLE IF NOT EXISTS user_settings (
+ user_id VARCHAR(30) NOT NULL
+,setting VARCHAR(255) NOT NULL
+,value VARCHAR(255) NULL
+,primary key(user_id, setting)
+);
+
+/*
+* Settings
+* list of settings and their discriptions. contains default values in the case that the user settings are null
+*/
+
+CREATE TABLE IF NOT EXISTS settings (
+ setting VARCHAR(255) NOT NULL
+,description VARCHAR(1025) NULL
+,default_value VARCHAR(255) NULL
+,primary key(setting)
 );
