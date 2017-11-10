@@ -1,5 +1,6 @@
 //Database
 var mUser = require('../models/users');
+var mUserSettings = require('../models/user_settings');
 
 //Actions
 exports.findById = function(req, res) {
@@ -12,7 +13,7 @@ exports.findById = function(req, res) {
 };
 exports.add = function(req, res) {
     var params = {};
-    params.user = req.body.user_id;
+    params.user_id = req.body.user_id;
     params.email = req.body.email;
     params.pass = req.body.password;
 
@@ -26,11 +27,19 @@ exports.delete = function(req, res) {};
 //Login and Logout functionality
 exports.login = function(req, res) {
     var params = {};
-    params.user = req.body.user_id;
+    params.user_id = req.body.user_id;
     params.pass = req.body.password;
 
-    mUser.loginUser(params, function(result){
-        res.send(result);
+    mUser.loginUser(params, function(loginresult){
+        if(loginresult.success){
+            mUserSettings.selectUserSettingsByUser(params, function(settingresult){
+                if(settingresult.success) loginresult.user_settings = settingresult.result;
+                res.send(loginresult);
+            });
+        }
+        else{
+            res.send(loginresult);
+        }
     });
 };
 exports.logout = function(req, res) {};

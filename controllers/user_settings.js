@@ -1,12 +1,12 @@
 //Database
-var usersettings = require('../models/user_settings');
+var mUserSettings = require('../models/user_settings');
 
 //Actions
 exports.findById = function(req, res) {
     var params = {};
     params.user_id = req.user_id;
     
-    usersettings.selectUserSettingsByUser(params, function(result){
+    mUserSettings.selectUserSettingsByUser(params, function(result){
         res.send(result);
     });
 };
@@ -23,9 +23,9 @@ exports.update = function(req, res) {
         return box;
     });
 
-    usersettings.deleteUserSettingByUser(params, function(deleteresult){
+    mUserSettings.deleteUserSettingByUser(params, function(deleteresult){
         if(deleteresult.success){
-            usersettings.insertUserSettings(params, function(addresult){
+            mUserSettings.insertUserSettings(params, function(addresult){
                 res.send(addresult);
             });
         }

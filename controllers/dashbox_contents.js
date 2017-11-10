@@ -4,8 +4,8 @@ var mDashboxContents = require('../models/dashbox_contents');
 //Actions
 exports.findById = function(req, res) {
     var params = {};
-    params.user = req.user_id;
-    params.id = req.query.dash_id;
+    params.user_id = req.user_id;
+    params.dash_id = req.query.dash_id;
     
     mDashboxContents.selectContents(params, function(result){
         res.send(result);

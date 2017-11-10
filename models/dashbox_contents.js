@@ -2,10 +2,10 @@
 var db = require('../db.js');
 
 exports.selectContents = function(params, callback){
-    if(params.id && params.user){
+    if(params.dash_id && params.user_id){
         var sql = 'SELECT * FROM dashbox_contents ' +
-        'WHERE dash_id = ' + db.get().escape(params.id) +
-        '  AND user_id = ' + db.get().escape(params.user);
+        'WHERE dash_id = ' + db.get().escape(params.dash_id) +
+        '  AND user_id = ' + db.get().escape(params.user_id);
 
         db.get().query(sql, function(err, rows){
             if(err) return callback({success: false, error: err});

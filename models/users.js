@@ -22,8 +22,8 @@ exports.selectUser = function(params, callback){
 }
 
 exports.addUser = function(params, callback){
-    if(params.user && params.email && params.pass){
-        var values = [[params.user, params.email, bcrypt.hashSync(params.pass, 8)]];
+    if(params.user_id && params.email && params.pass){
+        var values = [[params.user_id, params.email, bcrypt.hashSync(params.pass, 8)]];
         var sql = 'INSERT INTO users (user_id, email, pass) ' +
                   'VALUES ?';
         
@@ -31,7 +31,7 @@ exports.addUser = function(params, callback){
             if(err) return callback({success: false, error: err});
 
             //Create and send token
-            var token = jwt.sign({id: params.user}, config.token_key, {expiresIn: config.token_length});
+            var token = jwt.sign({id: params.user_id}, config.token_key, {expiresIn: config.token_length});
             return callback({success: true, result: token});
         });
     }
@@ -41,9 +41,9 @@ exports.addUser = function(params, callback){
 }
 
 exports.loginUser = function(params, callback){
-    if(params.user && params.pass){
+    if(params.user_id && params.pass){
         var sql = 'SELECT pass FROM users ' +
-                  'WHERE user_id = ' + db.get().escape(params.user);
+                  'WHERE user_id = ' + db.get().escape(params.user_id);
 
         db.get().query(sql, function(err, rows){
             if(err){
@@ -51,7 +51,7 @@ exports.loginUser = function(params, callback){
             }
             else if(rows.length == 1 && bcrypt.compareSync(params.pass, rows[0].pass)){
                 //Create and send token
-                var token = jwt.sign({id: params.user}, config.token_key, {expiresIn: config.token_length});
+                var token = jwt.sign({id: params.user_id}, config.token_key, {expiresIn: config.token_length});
                 return callback({success: true, result: token});
             }
             else {

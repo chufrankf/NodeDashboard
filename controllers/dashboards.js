@@ -1,5 +1,5 @@
 //Database
-var dashboards = require('../models/dashboards');
+var mDashboards = require('../models/dashboards');
 
 //Actions
 exports.findById = function(req, res) {
@@ -7,7 +7,7 @@ exports.findById = function(req, res) {
     params.user_id = req.user_id;
     params.dash_id = req.body.dash_id;
     
-    dashboards.selectDashboard(params, function(result){
+    mDashboards.selectDashboard(params, function(result){
         res.send(result);
     });
 };
@@ -17,7 +17,7 @@ exports.add = function(req, res) {
     params.user_id = req.user_id;
     params.dash_id = req.body.dash_id;
 
-    dashboards.insertDashboard(params, function(result){
+    mDashboards.insertDashboard(params, function(result){
         res.send(result);
     });
 };
@@ -27,7 +27,7 @@ exports.delete = function(req, res) {
     params.user_id = req.user_id;
     params.dash_id = req.body.dash_id;
 
-    dashboards.deleteDashboard(params, function(result){
+    mDashboards.deleteDashboard(params, function(result){
         res.send(result);
     });
 };

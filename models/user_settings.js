@@ -8,16 +8,16 @@ exports.selectUserSettingsByUser = function(params, callback){
         "      ,s.description " +
         "      ,CASE WHEN us.value IS NULL OR us.value = '' THEN s.default_value ELSE us.value END value " +
         "FROM settings s " +
-        "LEFT JOIN user_settings us ON us.setting = s.setting" +
+        "LEFT JOIN user_settings us ON us.setting = s.setting " +
         "WHERE us.user_id IS NULL or us.user_id = " + db.get().escape(params.user_id);
 
         db.get().query(sql, function(err, rows){
-        if(err) return res.send({success: false, error: err});
-        return res.send({success: true, result: rows});
+        if(err) return callback({success: false, error: err});
+        return callback({success: true, result: rows});
         });
     }
     else{
-        return res.send({success: false, error: {code: 'INV_REQ'}});
+        return callback({success: false, error: {code: 'INV_REQ'}});
     }
 }
 
@@ -27,12 +27,12 @@ exports.insertUserSettings = function(params, callback){
                   'VALUES ?';
         
         db.get().query(sql, [params.values], function(err, rows){
-            if(err) return res.send({success: false, error: err});
-            return res.send({success: true});
+            if(err) return callback({success: false, error: err});
+            return callback({success: true});
         });
     }
     else{
-        return res.send({success: false, error: {code: 'INV_REQ'}});
+        return callback({success: false, error: {code: 'INV_REQ'}});
     }
 }
 
@@ -41,11 +41,11 @@ exports.deleteUserSettingByUser = function(params, callback){
         var sql = 'DELETE FROM user_settings ' + 'WHERE user_id = ' + db.get().escape(params.user_id);
         
         db.get().query(sql, function(err, rows){
-            if(err) return res.send({success: false, error: err});
-            return res.send({success: true});
+            if(err) return callback({success: false, error: err});
+            return callback({success: true});
         });
     }
     else{
-        return res.send({success: false, error: {code: 'INV_REQ'}});
+        return callback({success: false, error: {code: 'INV_REQ'}});
     }
 }
