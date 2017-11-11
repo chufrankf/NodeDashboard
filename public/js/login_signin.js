@@ -77,12 +77,8 @@ $('#login-form').submit(function(e){
             if(res.result && values.user_id){
                 sessionStorage.setItem('access_token',res.result);
                 sessionStorage.setItem('user_id',values.user_id);
-                
-                //debug
-                if(res.user_settings) sessionStorage.setItem('user_settings', JSON.stringify(res.user_settings));
-                console.log(JSON.parse(sessionStorage.user_settings));
-                
-                //document.location.href = '/';
+                if(res.user_settings) sessionStorage.setItem('user_settings', JSON.stringify(res.user_settings));                
+                document.location.href = '/';
             }
             else{
                 $('#login-submit').notify(getErrorMessage('INV_USR_PASS'), {position: 'right', className: 'error'});

@@ -3,3 +3,15 @@ body {
     padding-bottom: 40px;
     background-color: #FFFBB9;
 }
+
+.title{
+    text-align: center;
+}
+
+th {
+    background-color: #9675ce;
+    color: #fff;
+} 
+th.highlight1{
+    background-color: #5E4981;
+}
