@@ -150,3 +150,16 @@ function ajax_settings_update(values, callback){
         success: callback
     });
 }
+
+function ajax_configs_get(values, callback){
+    $.ajax({
+        type: 'GET',
+        url: '/api/config/get',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: values,
+        success: callback
+    });
+}
+

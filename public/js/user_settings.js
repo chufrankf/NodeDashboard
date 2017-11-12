@@ -46,7 +46,6 @@ function update_row(updated_cell, updated_row, old_value) {
               if(res.user_settings) sessionStorage.setItem('user_settings', JSON.stringify(res.user_settings));                              
             }
             else{
-              console.log(res.error);
               $.notify("Error saving setting: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
             }
         });

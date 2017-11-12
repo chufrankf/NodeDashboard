@@ -18,6 +18,10 @@ module.exports = function(app){
     //Dashboards
     var dashboards = require('./controllers/dashboards');
 
+    //Configs
+    var configs = require('./controllers/configs')
+    app.get('/api/config/get', auth.verifyToken, configs.getConfig)
+
     //Users
     var users = require('./controllers/users');
     app.get('/api/user/get', auth.verifyToken, users.findById);

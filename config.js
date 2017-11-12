@@ -13,7 +13,12 @@ var config = {
       //Tokens
       token_length: 36000, // 1 hour
       token_key: process.env.ACCESS_TOKEN_SECRET,
-      header_tk_id: 'x-access-token'
+      header_tk_id: 'x-access-token',
+
+      //Google Client
+      google_client_id: process.env.GOOGLE_CLIENT_ID,
+      google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
+      google_api_key: process.env.GOOGLE_API_KEY
     }
   }
   
