@@ -8,8 +8,7 @@ exports.selectUserSettingsByUser = function(params, callback){
         "      ,s.description " +
         "      ,CASE WHEN us.value IS NULL OR us.value = '' THEN s.default_value ELSE us.value END value " +
         "FROM settings s " +
-        "LEFT JOIN user_settings us ON us.setting = s.setting " +
-        "WHERE us.user_id IS NULL or us.user_id = " + db.get().escape(params.user_id);
+        "LEFT JOIN user_settings us ON us.setting = s.setting AND us.user_id = " + db.get().escape(params.user_id);
 
         db.get().query(sql, function(err, rows){
         if(err) return callback({success: false, error: err});
@@ -24,7 +23,8 @@ exports.selectUserSettingsByUser = function(params, callback){
 exports.insertUserSettings = function(params, callback){
     if(params.values){
         var sql = 'INSERT INTO user_settings (user_id, setting, value) ' +
-                  'VALUES ?';
+                  'VALUES ? ' +
+                  'ON DUPLICATE KEY UPDATE value = VALUES(value)';
         
         db.get().query(sql, [params.values], function(err, rows){
             if(err) return callback({success: false, error: err});

@@ -11,8 +11,32 @@ exports.findById = function(req, res) {
     });
 };
 
-//Bulk Update
+//Update
 exports.update = function(req, res) {
+    var params = {};
+    params.user_id = req.user_id;
+    
+    var settings = [];
+    settings.push(req.user_id);
+    settings.push(req.body.setting);
+    settings.push(req.body.value);
+    params.values = [settings];
+
+    mUserSettings.insertUserSettings(params, function(insertresult){
+        if(insertresult.success){
+            mUserSettings.selectUserSettingsByUser(params, function(settingresult){
+                if(settingresult.success) insertresult.user_settings = settingresult.result;
+                res.send(insertresult);
+            });
+        }
+        else{
+            res.send(insertresult);
+        }
+    });
+}
+
+//Bulk Update
+exports.bulkupdate = function(req, res) {
     var params = {};
     params.user_id = req.user_id;
     params.values = req.body.elements.map(function(x){

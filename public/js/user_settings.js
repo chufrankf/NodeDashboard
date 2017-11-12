@@ -35,6 +35,20 @@ function fillDataTable(){
 function update_row(updated_cell, updated_row, old_value) {
     //If there are any changes
     if(updated_cell.data() != old_value){
-        console.log(updated_row.data());
+        var values = {};
+        values.setting = updated_row.data()[0];
+        values.value  = updated_row.data()[2];
+
+        ajax_settings_update(values, function(res){
+            if(res.success){
+              $.notify("Saved " + values.setting + " as " + values.value, {position: 'bottom left', className: 'success'});
+              //refill user settings table
+              if(res.user_settings) sessionStorage.setItem('user_settings', JSON.stringify(res.user_settings));                              
+            }
+            else{
+              console.log(res.error);
+              $.notify("Error saving setting: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+            }
+        });
     }
 }

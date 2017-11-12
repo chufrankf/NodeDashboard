@@ -138,3 +138,15 @@ function ajax_dashbox_get(values, callback){
         success: callback
     });
 }
+
+function ajax_settings_update(values, callback){
+    $.ajax({
+        type: 'POST',
+        url: '/api/user/settings/update',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: JSON.stringify(values),
+        success: callback
+    });
+}

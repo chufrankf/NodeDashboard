@@ -52,6 +52,7 @@ $('#register-form').submit(function(e){
         if(res.success){
             sessionStorage.setItem('access_token',res.result);
             sessionStorage.setItem('user_id',values.user_id);
+            if(res.user_settings) sessionStorage.setItem('user_settings', JSON.stringify(res.user_settings));                            
             document.location.href = '/';
         }
         else{

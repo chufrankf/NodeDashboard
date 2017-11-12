@@ -17,8 +17,16 @@ exports.add = function(req, res) {
     params.email = req.body.email;
     params.pass = req.body.password;
 
-    mUser.addUser(params, function(result){
-        res.send(result);
+    mUser.addUser(params, function(addresult){
+        if(addresult.success){
+            mUserSettings.selectUserSettingsByUser(params, function(settingresult){
+                if(settingresult.success) addresult.user_settings = settingresult.result;
+                res.send(addresult);
+            });
+        }
+        else{
+            res.send(addresult);
+        }
     });
 };
 exports.update = function(req, res) {};
