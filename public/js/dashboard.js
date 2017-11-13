@@ -19,7 +19,11 @@ $(document).ready(function(){
 //Start Packery - Handle draggability and resizing
 function gridstack_start() {
   //Start gridstack
-  $('.grid-stack').gridstack();  
+  $('.grid-stack').gridstack({
+    draggable: {
+        handle: '.item-icon.move-icon',
+    }
+  });  
 }
 
 function startup_defaults(){
@@ -131,6 +135,9 @@ function set_edit_mode(enable){
     
     //Set icon
     $('#dashboard-edit-img').attr('src','/img/check-circle-icon.png');
+    
+    //Disable Content
+    $('.grid-stack-item-content').addClass('disabled');
   }
   else{
     //Hide widget editing icons
@@ -139,6 +146,9 @@ function set_edit_mode(enable){
 
     //Set icon
     $('#dashboard-edit-img').attr('src','/img/edit-circle-icon.png');
+
+    //Enable Content
+    $('.grid-stack-item-content').removeClass('disabled');
   }
 }
 
@@ -191,7 +201,8 @@ function get_item_element(values){
                   '<div class="grid-stack-item-content item"></div>' +
                   '<i class="fa fa-wrench fa-lg item-icon edit-icon" onclick="edit_widget(this)" aria-hidden="true"></i>' +
                   '<i class="fa fa-times fa-lg item-icon delete-icon" onclick="delete_widget(this)" aria-hidden="true"></i>' + 
-                 '</div>');
+                  '<i class="fa fa-arrows fa-md item-icon move-icon" aria-hidden="true"></i>' +
+                  '</div>');
   if(values) update_widgethtml($items.children('.grid-stack-item-content.item'), values);
   return $items;
 }

@@ -26,6 +26,17 @@ body {
   top: 5px;
   right: 40px;
 }
+.item-icon.move-icon {
+  top: 5px;
+  left: 15px;
+  color: #525252
+}
+.grid-stack-item .item-icon.move-icon{
+  visibility:hidden;
+}
+.grid-stack-item:hover .item-icon.move-icon{
+  visibility:visible;
+}
 object.embedded-webpage {
   width:100%;
   height:100%;
@@ -36,6 +47,11 @@ object.embedded-webpage {
 .grid-stack .grid-stack-placeholder > .placeholder-content {
   border: 1px solid black;
   background: #C1CFE0
+}
+
+.grid-stack-item-content.disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 /*Dashboard Buttons*/
