@@ -17,8 +17,8 @@ exports.add = function(req, res) {
     params.dash_id = req.body.dash_id;
     params.values = req.body.elements.map(function(x){
         var box = [];
-        box.push(user_id);
-        box.push(dash_id);
+        box.push(params.user_id);
+        box.push(params.dash_id);
         box.push(x.box_id);
         box.push(x.box_type);
         box.push(x.x);
