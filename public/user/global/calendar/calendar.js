@@ -3,7 +3,7 @@ $(document).ready(function(){
     var calendarAddress = [];
     if(sessionStorage.user_settings && sessionStorage.user_settings != 'undefined' && sessionStorage.access_token  && sessionStorage.access_token != 'undefined'){
         calendarAddress = $.grep(JSON.parse(sessionStorage.user_settings), function(x){
-            return x.setting == 'gcal_address';
+            return x.setting == 'Google Calendar Address';
         });
 
         $.notify("Loading Google Calendars: " + calendarAddress[0].value, {position: 'bottom left', className: 'success'});
