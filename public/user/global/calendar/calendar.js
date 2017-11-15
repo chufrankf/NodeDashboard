@@ -22,14 +22,27 @@ $(document).ready(function(){
                     eventSources: calendarAddress,
                     defaultView: 'month',
                     aspectRatio: 1.35,
+                    customButtons: {
+                        addEvent: {
+                            text: 'Add Event',
+                            click: gcalAddEventClick
+                        },
+                        refeshEvents: { 
+                            text: "Refresh", 
+                            click: function() { 
+                                $('#calendar').fullCalendar('refetchEvents');
+                            }
+                        }
+                    },
                     header: {
                         left: 'title',
-                        center: 'month,agendaWeek,agendaDay,listWeek',
-                        right: 'prev,next today'
+                        center: 'month,agendaWeek,agendaDay,listWeek refeshEvents',
+                        right: 'prev,today,next addEvent'
                     },
                     navLinks: true,
                     editable: true,
-                    eventLimit: true
+                    eventLimit: true,
+                    eventClick: gcalEventClick,
                 });
             }
             else{
@@ -54,4 +67,13 @@ $(document).ready(function(){
         });
     }
 });
-  
+
+gcalEventClick = function(event) {
+    window.open(event.url, 'gcalevent', 'width=700,height=600');
+    return false;
+}
+
+gcalAddEventClick = function() {
+    window.open('https://calendar.google.com/calendar/render?action=TEMPLATE', 'gcalevent', 'width=700,height=600');
+    return false;
+}

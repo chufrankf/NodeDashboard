@@ -1,3 +1,4 @@
+/* Calendar Contents */
 #calendar {
     font-size: 14px;
     max-width: 900px;
@@ -43,19 +44,32 @@
 }
 
 .fc h2 {
-    font-size: 25px;
-    font-weight: 100;
- }
+   font-size: 25px;
+   font-weight: 100;
+}
 
- /* COLOR CLASSES */
- .bgc0{ background-color: #7da838	}
- .bgc1{ background-color: #0082c8	}
- .bgc2{ background-color: #f58231	}
- .bgc3{ background-color: #911eb4	}
- .bgc4{ background-color: #46f0f0	}
- .bgc5{ background-color: #f032e6	}
- .bgc6{ background-color: #3cb44b	}
- .bgc7{ background-color: #ffe119	}
- .bgc8{ background-color: #800000	}
- .bgc9{ background-color: #e6beff	}
+/* COLOR CLASSES */
+.bgc0{ background-color: #7da838	}
+.bgc1{ background-color: #0082c8	}
+.bgc2{ background-color: #f58231	}
+.bgc3{ background-color: #911eb4	}
+.bgc4{ background-color: #46f0f0	}
+.bgc5{ background-color: #f032e6	}
+.bgc6{ background-color: #3cb44b	}
+.bgc7{ background-color: #ffe119	}
+.bgc8{ background-color: #800000	}
+.bgc9{ background-color: #e6beff	}
+
+/* Buttons */
+.calendar-button{
+  height: 40px;
+  width: 40px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.calendar-button.add{
+  bottom: 30px;
+  right: 15px;
+}
 
