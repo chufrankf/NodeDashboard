@@ -32,7 +32,36 @@ var code_EditSelect = [
 /* 
 Functions 
 */
+function resetForm($form) {
+    $form.find('input:text, input:password, input:file, select, textarea').val('');
+    $form.find('input:radio, input:checkbox')
+         .removeAttr('checked').removeAttr('selected');
+}
 
+function parseURL(url) {
+    var parser = document.createElement('a');
+    var searchObject = {};
+    var queries, split, i;
+
+    parser.href = url;
+    queries = parser.search.replace(/^\?/, '').split('&');
+    for( i = 0; i < queries.length; i++ ) {
+        split = queries[i].split('=');
+        searchObject[split[0]] = split[1];
+    }
+    return {
+        protocol: parser.protocol,
+        host: parser.host,
+        hostname: parser.hostname,
+        port: parser.port,
+        pathname: parser.pathname,
+        search: parser.search,
+        query: searchObject,
+        hash: parser.hash
+    };
+}
+
+//Get
 function getURLSearchParams(){
     if(searchParams) return searchParams;
     else{
@@ -41,13 +70,11 @@ function getURLSearchParams(){
     }
 }
 
-//Errors
 function getErrorMessage(code){
     if(code in code_Errors) return code_Errors[code];
     else return code;
 }
 
-//Item Address
 function getContentData(id){
     var type = code_EditSelect.find(function(x){
         return x.id == id;
@@ -55,12 +82,6 @@ function getContentData(id){
     return type;
 }
 
-//Validate
-function isNullOrUndefined(some_variable){
-    return typeof(some_variable) === 'undefined' || some_variable == null;
-}
-
-//Next Grid Item
 function getNextGridIndex(arr){
     //If there is nothing in list, return 0
     if(arr.length === 0) return 0;
@@ -85,81 +106,13 @@ function getNextGridIndex(arr){
     return max + 1;
 }
 
+//Validate
+function isNullOrUndefined(some_variable){
+    return typeof(some_variable) === 'undefined' || some_variable == null;
+}
+
 function isLoggedIn(){
     if(sessionStorage.access_token && sessionStorage.access_token != 'undefined') return true;
     else return false;
-}
-
-/*
-API Callbacks
-*/
-function ajax_user_login(values, callback){
-    $.ajax({
-        type: 'PUT',
-        url: '/api/user/login',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: JSON.stringify(values),
-        success: callback
-    });
-}
-
-function ajax_user_add(values, callback){
-    $.ajax({
-        type: 'POST',
-        url: '/api/user/add',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: JSON.stringify(values),
-        success: callback
-    });
-}
-
-function ajax_dashbox_update(values, callback){
-    $.ajax({
-        type: 'POST',
-        url: '/api/box/update',
-        headers: { 'x-access-token' : sessionStorage.access_token},
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: JSON.stringify(values),
-        success: callback
-    });
-}
-
-function ajax_dashbox_get(values, callback){
-    $.ajax({
-        type: 'GET',
-        url: '/api/box/get',
-        headers: { 'x-access-token' : sessionStorage.access_token},
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: values,
-        success: callback
-    });
-}
-
-function ajax_settings_update(values, callback){
-    $.ajax({
-        type: 'POST',
-        url: '/api/user/settings/update',
-        headers: { 'x-access-token' : sessionStorage.access_token},
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: JSON.stringify(values),
-        success: callback
-    });
-}
-
-function ajax_configs_get(values, callback){
-    $.ajax({
-        type: 'GET',
-        url: '/api/config/get',
-        headers: { 'x-access-token' : sessionStorage.access_token},
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: values,
-        success: callback
-    });
 }
 

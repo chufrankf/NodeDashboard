@@ -42,6 +42,11 @@ module.exports = function(app){
     app.post('/api/box/update', auth.verifyToken, dashbox.add);
     app.get('/api/box/get', auth.verifyToken, dashbox.findById);
 
+    //User Requests
+    var user_requests = require('./controllers/user_request');
+    app.get('/api/requests/get', user_requests.findById);
+    app.post('/api/requests/update', user_requests.update);
+
     //Add additional controllers here
     
 }

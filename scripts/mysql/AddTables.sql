@@ -56,6 +56,9 @@ CREATE TABLE IF NOT EXISTS users (
 /*
 * Create user settings
 * For each user created there will be settings for the user. If not use the default
+* user_id - id of the user
+* setting - setting name
+* value - user set value of the setting
 */
 CREATE TABLE IF NOT EXISTS user_settings (
  user_id VARCHAR(30) NOT NULL
@@ -65,8 +68,11 @@ CREATE TABLE IF NOT EXISTS user_settings (
 );
 
 /*
-* Settings
+* Settings details
 * list of settings and their discriptions. contains default values in the case that the user settings are null
+* setting - setting name
+* description - description of the setting
+* value - user set value of the setting
 */
 
 CREATE TABLE IF NOT EXISTS settings (
@@ -75,3 +81,47 @@ CREATE TABLE IF NOT EXISTS settings (
 ,default_value VARCHAR(255) NULL
 ,primary key(setting)
 );
+
+/*
+* User Requests
+* Lists of requests made to each user. A requestee may recieve multiple requests from multiple requestors
+* requestee - id of the user
+* requestor - name of the requestor
+* seq - number of the request
+* request - detailed description of the request
+* priority - numeric value describing the priority (1 - Highest, 5 - Lowest)
+* status - what is the current status of this request
+*        1. Requested
+*        2. On To-do
+*        3. Blocked
+*        4. Completed
+*        5. Rejected
+*/
+
+CREATE TABLE IF NOT EXISTS user_requests (
+ seq INT NOT NULL
+,requestee VARCHAR(30) NOT NULL
+,requestor VARCHAR(125) NOT NULL
+,priority TINYINT NOT NULL DEFAULT 3
+,request VARCHAR(255)
+,status TINYINT NOT NULL DEFAULT 1
+,created_by VARCHAR(125) NOT NULL
+,edited_by VARCHAR(125) NOT NULL
+,primary key(requestee, seq)
+);
+
+/*
+* Code Table
+* This is a code table that will be used to get names of certain numeric codes
+* field: name of the type of code in question
+* code: numeric number of the code
+* description: text describing the code, will be used in getting names
+*/
+
+CREATE TABLE IF NOT EXISTS code_description (
+ field VARCHAR(5) NOT NULL
+,code INT NOT NULL
+,description VARCHAR(64)
+,primary key(field, code)
+);
+

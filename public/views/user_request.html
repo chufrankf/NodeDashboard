@@ -15,15 +15,18 @@
         <!-- JQueryUI CSS -->
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     
+        <!-- DataTables -->
+        <link rel="stylesheet" href="/lib/datatables.min.css">
+
         <!-- Custom styles for this template -->
         <link rel="stylesheet" type="text/css" href="/css/main.css" >
+        <link rel="stylesheet" type="text/css" href="/css/user_request.css" >
     
     </head>
 
     <body>
-        
         <div id="wrapper">
-            
+
             <!-- Navigation Bar -->
             <div id="nav-placeholder">
                 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -45,6 +48,64 @@
         
             <!-- Body -->
             <div id="page-content-wrapper">
+                <h2 class="outer" id="user-header"></h2>
+                <div class="container row">
+                    <div class="col-md-12 col-md-offset-3">
+                        <div class="panel panel-req">
+                            <div class="panel-heading row">
+                                <div class="col-sm-3 tabs request active" id="request-form-link">APPLICATION</div>
+                                <div class="col-sm-9 tabs sent" id="sent-form-link">SENT</div>
+                            </div>
+                            <div class="panel-body row">
+                                <div class="col-lg-12">
+                                    <form id="request-form" action="#" method="post" role="form" style="display: block;">
+                                        <h2>REQUEST</h2>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-1">
+                                                    <input type="number" name="seq" id="seq" tabindex="1" class="form-control" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="requestor" id="requestor" tabindex="1" class="form-control" placeholder="Requestor" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <select name="priority" id="priority" tabindex="2" class="form-control">
+                                                <option value='1'>1 - Critical</option>
+                                                <option value='2'>2 - High</option>
+                                                <option value='3' selected="selected">3 - Medium</option>
+                                                <option value='4'>4 - Low</option>
+                                                <option value='5'>5 - Optional</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <textarea type="text" name="request" id="request" tabindex="3" class="form-control" placeholder="Enter request details here..." rows="5" maxlength="200" required></textarea>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <span id="request-characters">200 remaining</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-sm-offset-3">
+                                                    <input type="submit" name="req-submit" id="req-submit" tabindex="4" class="form-control btn btn-req" value="Send">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form id="sent-form" action="#" method="post" role="form" style="display: none;">
+                                        <h2>SENT ITEMS</h2>
+                                        <table id="sent_table" class="table table-bordered table-hover" cellspacing="0" width="100%"></table>                            
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
@@ -58,8 +119,20 @@
         <!-- Notify -->
         <script type="text/javascript" src="/lib/notify.min.js"></script>   
         
+        <!-- Popper -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        <!-- DataTables -->
+        <script type="text/javascript" src="/lib/datatables.min.js"></script>
+        <script type="text/javascript" src="/lib/datatables-eb-celledit.js"></script>
+        
         <!-- Scripts -->
         <script type="text/javascript" src="/js/helpers/fchelper.js"></script>
+        <script type="text/javascript" src="/js/helpers/fcapi.js"></script>    
+        <script type="text/javascript" src="/js/user_request.js"></script>
         
     </footer>
 </html>
