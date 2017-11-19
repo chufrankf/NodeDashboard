@@ -24,6 +24,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
                 <li><a class="dropdown-item" href="/user/settings"><i class="fa fa-cog" aria-hidden="true"></i> Preferences</a></li>
+                <li><a class="dropdown-item requests" href="/user/requests"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Request Page</a></li>                
                 <div class="dropdown-divider"></div>
                 <li><a class="dropdown-item signout-click" href="/signin" ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
             </ul>
@@ -55,6 +56,9 @@
         $('#user-signin-nav').show();
         $('#user-profile-nav').hide();
     }
+
+    var params = {user: user};
+    if(params.user) $('a.dropdown-item.requests').attr('href', "/user/requests?" + jQuery.param(params));
 
     $(".signout-click").click(function () {
       sessionStorage.clear();

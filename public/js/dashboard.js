@@ -41,7 +41,7 @@ function startup_defaults(){
 User Actions
 *******/
 //Click toggle-edit-mode
-function toggle_mode(){
+function toggle_mode(save){
   switch(mode){
     case "Display":{
       set_edit_mode(true);
@@ -50,7 +50,7 @@ function toggle_mode(){
     }
     case "Edit":{
       set_edit_mode(false);
-      save_element();
+      if(save) save_element();
       mode = "Display";
       break;
     }
@@ -132,6 +132,7 @@ function set_edit_mode(enable){
     //Show widget editing icons
     $('.item-icon').show();
     $('#dashboard-add-img').show();
+    $('#dashboard-cancel-img').show();
     
     //Set icon
     $('#dashboard-edit-img').attr('src','/img/check-circle-icon.png');
@@ -143,6 +144,7 @@ function set_edit_mode(enable){
     //Hide widget editing icons
     $('.item-icon').hide();
     $('#dashboard-add-img').hide();
+    $('#dashboard-cancel-img').hide();
 
     //Set icon
     $('#dashboard-edit-img').attr('src','/img/edit-circle-icon.png');

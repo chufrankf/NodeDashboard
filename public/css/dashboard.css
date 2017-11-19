@@ -70,6 +70,10 @@ object.embedded-webpage {
   bottom: 90px;
   right: 20px;
 }
+.dashboard-button.cancel{
+  bottom: 20px;
+  right: 90px;
+}
 
 /* Modal */
 .modal-body {

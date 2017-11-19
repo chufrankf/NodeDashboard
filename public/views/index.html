@@ -23,6 +23,9 @@
     <!-- Gridstack CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.css" />
     
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/lib/datatables.min.css">
+    
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
@@ -50,10 +53,13 @@
     <!-- Button: Add to dashboard -->
     <aside>
       <div class="dashboard-button edit">
-          <img id="dashboard-edit-img" src="/img/edit-circle-icon.png" class="img-fluid" onclick="toggle_mode();" />
+          <img id="dashboard-edit-img" src="/img/edit-circle-icon.png" class="img-fluid" onclick="toggle_mode(true);" />
       </div>
       <div class="dashboard-button add">
           <img id="dashboard-add-img" src="/img/plus-circle-icon.png" class="img-fluid"/>
+      </div>
+      <div class="dashboard-button cancel">
+          <img id="dashboard-cancel-img" src="/img/cancel-circle-icon.png" class="img-fluid" onclick="toggle_mode(false);" />
       </div>
     </aside>
 
@@ -132,6 +138,10 @@
     
     <!-- Moment -->
     <script type="text/javascript" src='/lib/moment.min.js'></script>
+
+    <!-- DataTables -->
+    <script type="text/javascript" src="/lib/datatables.min.js"></script>
+    <script type="text/javascript" src="/lib/datatables-eb-celledit.js"></script>
     
     <!-- Script -->
     <script type="text/javascript" src="/js/helpers/fchelper.js"></script>    

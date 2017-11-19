@@ -8,6 +8,7 @@ module.exports = function(app){
     //Links
     app.get("/signin",function(req,res){res.sendFile(views + "login_signin.html")});
     app.get("/user/settings",function(req,res){res.sendFile(views + "user_settings.html")});
+    app.get("/user/requests",function(req,res){res.sendFile(views + "user_request.html")});
 
     //API
     app.get("/api",function(req, res){res.json({ message: 'dash.api' });});
