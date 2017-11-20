@@ -25,8 +25,9 @@ exports.add = function(req, res) {
         box.push(x.y);
         box.push(x.height);
         box.push(x.width);
-        box.push(x.custom_hash);
         box.push(x.field01);
+        box.push(x.field02);
+        box.push(x.field03);
         return box;
     });
 

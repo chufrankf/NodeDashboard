@@ -13,22 +13,6 @@ var code_Errors = {
 //Form variables
 var searchParams;
 
-//Item Types
-var dashConstants = {
-    None:           {id: 0, name: "None"            ,    href: null},
-    CustomHTML:     {id: 1, name: "Custom HTML"     ,    href: null},
-    GoogleCalendar: {id: 2, name: "Google Calendar" ,    href:"/user/global/calendar/calendar.html", dimensions:{width: 6, height: 6}},
-    RequestList:    {id: 3, name: "Request List"    ,    href: null},
-    EmbeddedWebpage:{id: 4, name: "Embedded Webpage",    href: null}
-};
-var code_EditSelect = [
-    dashConstants.None,
-    dashConstants.CustomHTML,
-    dashConstants.GoogleCalendar,
-    dashConstants.RequestList,
-    dashConstants.EmbeddedWebpage
-];
-
 /* 
 Functions 
 */
@@ -73,13 +57,6 @@ function getURLSearchParams(){
 function getErrorMessage(code){
     if(code in code_Errors) return code_Errors[code];
     else return code;
-}
-
-function getContentData(id){
-    var type = code_EditSelect.find(function(x){
-        return x.id == id;
-    });
-    return type;
 }
 
 function getNextGridIndex(arr){

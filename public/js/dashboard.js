@@ -31,10 +31,61 @@ function startup_defaults(){
   setDashboardID();
   //Startup as display mode
   set_edit_mode(false);
-  //Generate the defaults in the modal for editing
-  generate_edit_modal();
+  //Load Edit Modals
+  load_edit_modals();
   //Fill the display with griditems
   fill_dashboard();
+}
+
+//Load the modal
+function load_edit_modals(){
+  $("#edit-modal-placeholder").load("/views/edit_modal.html");
+}
+
+function setDashboardID(){
+  var id = getURLSearchParams().get('id');
+  if(id && typeof(id) === 'number' && parseInt(id) > 0){
+    dashboard_id = parseInt(id);
+    document.title = "Dashboard " + id;
+  }
+  else{
+    dashboard_id = 0;
+    document.title = "Dashboard Home";
+  }
+}
+
+function fill_dashboard(){
+  if(isLoggedIn()){
+    var values = {dash_id: dashboard_id};
+
+    ajax_dashbox_get(values, function(res){
+      if(res.success){
+        res.result.forEach(function(x){
+          set_edit_mode(true);
+          add_element(x.gs_x
+                     ,x.gs_y
+                     ,x.gs_width
+                     ,x.gs_height
+                     ,false
+                     ,null
+                     ,null
+                     ,null
+                     ,null
+                     ,x.box_id
+                     ,{ box_type: x.box_type
+                       ,field01:  x.field01
+                       ,field02:  x.field02
+                       ,field03:  x.field03}
+                    );
+          set_edit_mode(false);
+        });
+        $.notify("Dashboard Loaded",  {position: 'bottom left', className: 'success'});
+      }
+      else{
+        $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+      }
+    });
+  }
 }
 
 /******
@@ -81,44 +132,14 @@ function edit_widget(id){
   $('#edit_modal').data('trigger', widget);
 
   //Set modal attributes and defaults
-  set_modal_defaults(widget.children('.grid-stack-item-content.item'));
+  toggleSelectedType(widget.children('.grid-stack-item-content.item'));
 
   //Show the modal
   $('#edit_modal').modal('show'); 
 }
 
-//Save modal settings
-$('#saveEditItem-button').click(function(e){
-  //Get the values from the form
-  var values = {};
-  $.each($('#form-edititem').serializeArray(), function(i, field) {
-      if(field.name === "item_type" || field.name === "custom_hash" || field.name == "webpage"){
-          values[field.name] = field.value;
-      }
-  });
-
-  switch(parseInt(values.item_type)){
-    case dashConstants.EmbeddedWebpage.id: values["field01"] = values.webpage; break;
-  }
-
-  //Get the original widget
-  widget = $('#edit_modal').data('trigger').children('.grid-stack-item-content.item');
-
-  //Update the div
-  update_widgetsize($('#edit_modal').data('trigger'), values);
-  update_widgethtml(widget, values);
-
-  //Close the modal
-  $('#edit_modal').modal('hide'); 
-});
-
-//Change of select option
-$('#select-itemtypes').change(function(event){
-  set_modal_defaults(null);
-});
-
 /******
-Helpers
+* Helpers
 *******/
 //Turn on edit mode
 function set_edit_mode(enable){
@@ -167,14 +188,15 @@ function save_element(){
     if (typeof node == 'undefined') return;
     else{
       values.elements.push({
-        box_id: $(this).data('gs-id'),
-        box_type: child.data('item_type') ? child.data('item_type') : "0",
-        x: node.x,
-        y: node.y,
-        height: node.height,
-        width: node.width,
-        custom_hash: child.data('custom_hash') ? child.data('custom_hash') : "",
-        field01: child.data('field01') ? child.data('field01') : ""
+         box_id: $(this).data('gs-id')
+        ,box_type: child.data('box_type') ? child.data('box_type') : "0"
+        ,x: node.x
+        ,y: node.y
+        ,height: node.height
+        ,width: node.width
+        ,field01: child.data('field01') ? child.data('field01') : ""
+        ,field02: child.data('field02') ? child.data('field02') : ""
+        ,field03: child.data('field03') ? child.data('field03') : ""
       });
     }
   });
@@ -218,115 +240,28 @@ function add_element(x, y, width, height, autoPosition, minWidth, maxWidth, minH
   grid.addWidget($items, x, y, width, height, autoPosition, minWidth, maxWidth, minHeight, maxHeight, id);
 }
 
+
+/*****
+* Updating Widgets 
+******/
+
 function update_widgetsize(widget, values){
-  if(!isNullOrUndefined(values.item_type)){
+  if(!isNullOrUndefined(values.box_type)){
     var grid = $('.grid-stack').data('gridstack');
-    var size = getContentData(values.item_type).dimensions;
+    var size = getContentData(values.box_type).dimensions;
     if(!isNullOrUndefined(size))
       grid.update($('#edit_modal').data('trigger'),null,null,size.width,size.height);
   }
 }
 
 function update_widgethtml(widget, values){
-  if(!isNullOrUndefined(values.custom_hash)){
-    widget.data('custom_hash', values.custom_hash);
-  }
-  if(!isNullOrUndefined(values.item_type)){
-    widget.data('item_type', values.item_type);
-  } 
-  if(!isNullOrUndefined(values.field01)){
-    widget.data('field01', values.field01);
-  }
-
-  //Load the widget with new settings
-  if(!isNullOrUndefined(values.item_type)){
-    var address = getContentData(values.item_type).href;
-    //Load if its an global embedded html
-    if(!isNullOrUndefined(address)){
-      widget.load(address);
-    }
-    //Otherwise load based on item type
-    else{
-      switch(parseInt(values.item_type)){
-        case dashConstants.EmbeddedWebpage.id: 
-          if (!isNullOrUndefined(values.field01)) { 
-            widget.html('<object data="' + values.field01 + '" class="embedded-webpage"></object>');
-          } break;
-      }
-    }
-  }
-}
-
-function generate_edit_modal(){
-  //Populate Item Type Selection
-  var options = '';
-  $.each(code_EditSelect, function(index, value){
-    options += '<option value="'+ value.id + '">' + value.name + '</option>';    
-  })
-  $('#select-itemtypes').append(options);
-}
-
-function set_modal_defaults(widget){
-  var selected = 0;
-  var hash = '';
-  var field01 = '';
-
-  if(isNullOrUndefined(widget)){
-    selected = $('#select-itemtypes option:selected').val();
-  }
-  else {
-    //Get data from element
-    hash = isNullOrUndefined(widget.data('custom_hash')) ? hash : widget.data('custom_hash');
-    selected = isNullOrUndefined(widget.data('item_type')) ? selected : widget.data('item_type');
-    field01 = isNullOrUndefined(widget.data('field01')) ? field01 : widget.data('field01');
-
-    //Set the custom hash value
-    $('#input-customhash').val(hash);
-    $('#select-itemtypes').val(selected);
-    switch(selected){
-      case dashConstants.EmbeddedWebpage.id: $('#input-webpage').val(field01); break;
-    }
-  }
-  
-  //Show or hide based on selection
-  $('.edit-modal-form-switch').each(function() {
-    if($(this).attr('key') == selected) {
-      $(this).show();
-    }
-    else {
-      $(this).hide();
-    }
+  //Update data
+  $.each(values, function(key, val){
+    if(val != '') widget.data(key, val);
   });
-}
 
-function setDashboardID(){
-  var id = getURLSearchParams().get('id');
-  if(id && typeof(id) === 'number' && parseInt(id) > 0){
-    dashboard_id = parseInt(id);
-    document.title = "Dashboard " + id;
-  }
-  else{
-    dashboard_id = 0;
-    document.title = "Dashboard Home";
-  }
-}
-
-function fill_dashboard(){
-  if(isLoggedIn()){
-    var values = {dash_id: dashboard_id};
-
-    ajax_dashbox_get(values, function(res){
-      if(res.success){
-        res.result.forEach(function(x){
-          set_edit_mode(true);
-          add_element(x.gs_x, x.gs_y, x.gs_width, x.gs_height, false, null, null, null, null, x.box_id, {item_type: x.box_type, custom_hash: x.custom_hash, field01: x.field01});
-          set_edit_mode(false);
-        });
-        $.notify("Dashboard Loaded",  {position: 'bottom left', className: 'success'});
-      }
-      else{
-        $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
-      }
-    });
+  //Update contents
+  if(!isNullOrUndefined(getContentData(values.box_type).content)){
+    getContentData(values.box_type).content(widget, values);
   }
 }
