@@ -33,6 +33,9 @@ var mRequestList = {
    ,name: "Request List"    
    ,href: null
    ,description: 'Request List allows you to see all requests made to your account. From here you maid accept or deny the request and add it to your calendar. You may also send an auto-generated return email'
+   ,content: function(widget, values){
+    widget.load("/user/global/requests/request.html");
+   }
 };
 var mEmbeddedWebpage = {
     id: 4

@@ -1,0 +1,31 @@
+div.wrapper {
+    background-color: #ffffff;
+    padding: 10px;
+    font-size: 11px; 
+}
+
+/* Table */
+th {
+    background-color: #24A8BD;
+    color: #fff;
+}
+
+div.dataTables_length select[name="req_table_length"]{
+    font-size: 11px;
+    height: auto;
+    line-height: 14px;
+}
+
+.datatable-buttons {
+    font-size: 11px; 
+}
+
+.toolbar .checkbox-inline{
+    margin-right: 10px;
+    font-weight: 300;
+}
+
+tr.critical{ color: rgb(153, 24, 24); }
+tr.high{ color: #d17600; }
+tr.requested{ background-color: #fdff9f; }
+tr.rejected,tr.closed,tr.blocked{ background-color: #c7c7c7; }

@@ -111,22 +111,14 @@ function fillFields(results){
     }
     else{
         $('#sent_table').DataTable({
-            columnDefs: [ {
-                orderable: false,
-                className: 'select-checkbox',
-                targets:   0
-            } ],
-            select: {
-                style:    'os',
-                selector: 'td:first-child'
-            },
+            select: true,
             data: list,
             columns: [
-                { title: "Seq"       ,width: '5%'  },
+                { title: "Seq"       ,width: '1%'  },
                 { title: "Requestor" ,width: '20%' },
                 { title: "Priority"  ,width: '10%' },
-                { title: "Request"   ,width: '55%' },
-                { title: "Status"    ,width: '10%' }
+                { title: "Request"   ,width: '50%' },
+                { title: "Status"    ,width: '19%' }
             ]
         });
     }
