@@ -38,3 +38,34 @@ exports.update = function(req, res) {
         }
     });
 }
+
+exports.updateStatus = function(req, res){
+    var params = {};
+    params.requestee = req.user_id;
+    params.new_status = req.body.new_status;
+
+    params.values = req.body.elements.map(function(x){
+        var box = [];
+        box.push(params.requestee);
+        box.push(x.seq);
+        box.push(x.requestor);
+        box.push(x.priority);
+        box.push(x.request);
+        box.push(params.requestee);
+        box.push(params.requestee);
+        box.push(params.new_status);
+        return box;
+    });
+
+    mUserRequests.updateRequestStatus(params, function(insertresult){
+        if(insertresult.success){
+            mUserRequests.selectUserRequestsByUser(params, function(getresult){
+                if(getresult.success) insertresult.user_requests = getresult.result;
+                res.send(insertresult);
+            });
+        }
+        else{
+            res.send(insertresult);
+        }
+    });
+}

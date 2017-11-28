@@ -20,12 +20,24 @@ div.dataTables_length select[name="req_table_length"]{
     font-size: 11px; 
 }
 
-.toolbar .checkbox-inline{
+.toolbar-status .checkbox-inline{
     margin-right: 10px;
     font-weight: 300;
 }
 
-tr.critical{ color: rgb(153, 24, 24); }
-tr.high{ color: #d17600; }
-tr.requested{ background-color: #fdff9f; }
-tr.rejected,tr.closed,tr.blocked{ background-color: #c7c7c7; }
+tr.critical{ 
+    color: rgb(153, 24, 24); 
+    font-weight: 900;
+}
+tr.high{ 
+    color: #d17600; 
+}
+tr.requested{ 
+    background-color: #fdff9f; 
+}
+tr.rejected,tr.blocked{ 
+    background-color: #c7c7c7; 
+}
+tr.completed{
+    background-color: #adffa6; 
+}

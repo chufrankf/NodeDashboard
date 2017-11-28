@@ -51,3 +51,19 @@ exports.deleteSingleRequest = function(params, callback){
         return callback({success: false, error: {code: 'INV_REQ'}});
     }
 }
+
+exports.updateRequestStatus = function(params, callback){
+    if(params.values){
+        var sql = 'INSERT INTO user_requests (requestee, seq, requestor, priority, request, created_by, edited_by, status) ' +
+                  'VALUES ? ' +
+                  'ON DUPLICATE KEY UPDATE priority = VALUES(priority), status = VALUES(status), edited_by = VALUES(edited_by)';
+        
+        db.get().query(sql, [params.values], function(err, rows){
+            if(err) return callback({success: false, error: err});
+            return callback({success: true});
+        });
+    }
+    else{
+        return callback({success: false, error: {code: 'INV_REQ'}});
+    }
+}

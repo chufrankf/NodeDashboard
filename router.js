@@ -47,6 +47,7 @@ module.exports = function(app){
     var user_requests = require('./controllers/user_request');
     app.get('/api/requests/get', user_requests.findById);
     app.post('/api/requests/update', user_requests.update);
+    app.post('/api/requests/updatestatus', auth.verifyToken, user_requests.updateStatus);
 
     //Add additional controllers here
     

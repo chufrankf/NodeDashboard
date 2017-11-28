@@ -17,7 +17,7 @@ VALUES
 ,('RQPRI', 5, 'Optional')
 ,('RQSTS', 0, 'Removed')
 ,('RQSTS', 1, 'Requested')
-,('RQSTS', 2, 'On To-do')
+,('RQSTS', 2, 'In Progress')
 ,('RQSTS', 3, 'Blocked')
 ,('RQSTS', 4, 'Completed')
 ,('RQSTS', 5, 'Rejected');

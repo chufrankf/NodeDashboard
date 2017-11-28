@@ -98,3 +98,14 @@ function ajax_request_update(values, callback){
     });
 }
 
+function ajax_request_updatestatus(values, callback){
+    $.ajax({
+        type: 'POST',
+        url: '/api/requests/updatestatus',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: JSON.stringify(values),
+        success: callback
+    });
+}

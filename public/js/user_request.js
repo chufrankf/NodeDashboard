@@ -119,7 +119,8 @@ function fillFields(results){
                 { title: "Priority"  ,width: '10%' },
                 { title: "Request"   ,width: '50%' },
                 { title: "Status"    ,width: '19%' }
-            ]
+            ],
+            order: [[0, 'desc' ]]
         });
     }
 }
