@@ -1,5 +1,5 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <i class="fa fa-bars navbar-brand" onclick="menu_toggle(this);"></i>
+      <i class="fa fa-bars navbar-brand" id="sidebar-toggle" onclick="sidebar_toggle(this);"></i>      
     <a class="navbar-brand" href="/">
       Node.js Dashboard
     </a>
@@ -39,13 +39,16 @@
    </div>
  </nav>
 
- <nav id="sidebar-wrapper">
-    <ul class="sidebar-nav nav">
-    </ul>
-  </nav>
-
 <script type="text/javascript">
   $(document).ready(function(){
+    var url = parseURL(window.location.href);
+    if(url.pathname == '/'){
+      $('#sidebar-toggle').show();
+    }
+    else{
+      $('#sidebar-toggle').hide();
+    }
+
     var user = sessionStorage.user_id;
     if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
         $('#user-profile-nav').show();

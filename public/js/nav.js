@@ -12,6 +12,6 @@ function startup_display_settings(){
 }
 
 //Events
-function menu_toggle(id) {
-    $("#wrapper").toggleClass("toggled");
+function sidebar_toggle(id) {
+    $("#sidebar-wrapper").toggleClass("toggled");
 }
