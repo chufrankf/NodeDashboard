@@ -2,12 +2,21 @@
 var mDashboards = require('../models/dashboards');
 
 //Actions
-exports.findById = function(req, res) {
+exports.findByPk = function(req, res) {
     var params = {};
     params.user_id = req.user_id;
     params.dash_id = req.body.dash_id;
     
-    mDashboards.selectDashboard(params, function(result){
+    mDashboards.selectDashboardByPk(params, function(result){
+        res.send(result);
+    });
+};
+
+exports.findByUser = function(req, res) {
+    var params = {};
+    params.user_id = req.user_id;
+    
+    mDashboards.selectDashboardByUser(params, function(result){
         res.send(result);
     });
 };

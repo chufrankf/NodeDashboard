@@ -33,13 +33,20 @@ module.exports = function(app){
     app.put('/api/user/login', users.login);
     app.put('/api/user/logout', users.logout);
 
+    //Dashboards
+    var dashboard = require('./controllers/dashboards');
+    app.get('/api/dash/getbyuser', auth.verifyToken, dashboard.findByUser);
+    app.get('/api/dash/get', auth.verifyToken, dashboard.findByPk);
+    app.post('/api/dash/add', auth.verifyToken, dashboard.add);
+    app.delete('/api/dash/delete', auth.verifyToken, dashboards.delete);
+
     //User Settings
     var user_settings = require('./controllers/user_settings');
     app.post('/api/user/settings/update', auth.verifyToken, user_settings.update);
     app.get('/api/user/settings/get', auth.verifyToken, user_settings.findById);
 
     //DashBoxContents
-    var dashbox = require('./controllers/dashbox_contents')
+    var dashbox = require('./controllers/dashbox_contents');
     app.post('/api/box/update', auth.verifyToken, dashbox.add);
     app.get('/api/box/get', auth.verifyToken, dashbox.findById);
 

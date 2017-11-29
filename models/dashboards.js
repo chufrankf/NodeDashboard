@@ -1,11 +1,26 @@
 //Database
 var db = require('../db.js');
 
-exports.selectDashboard = function(params, callback){
+exports.selectDashboardByPk = function(params, callback){
     if(params.user_id && params.dash_id){
         var sql = 'SELECT * FROM dashboards ' +
         'WHERE user_id = ' + db.get().escape(params.user_id) +
         '  AND dash_id = ' + db.get().escape(params.dash_id);
+
+        db.get().query(sql, function(err, rows){
+        if(err) return callback({success: false, error: err});
+        return callback({success: true, result: rows});
+        });
+    }
+    else{
+        return callback({success: false, error: {code: 'INV_REQ'}});
+    }
+}
+
+exports.selectDashboardByUser = function(params, callback){
+    if(params.user_id){
+        var sql = 'SELECT * FROM dashboards ' +
+        'WHERE user_id = ' + db.get().escape(params.user_id);
 
         db.get().query(sql, function(err, rows){
         if(err) return callback({success: false, error: err});

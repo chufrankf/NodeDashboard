@@ -49,16 +49,16 @@
 }
 
 /* COLOR CLASSES */
-.bgc0{ background-color: #7da838	}
-.bgc1{ background-color: #0082c8	}
-.bgc2{ background-color: #f58231	}
-.bgc3{ background-color: #911eb4	}
-.bgc4{ background-color: #46f0f0	}
-.bgc5{ background-color: #f032e6	}
-.bgc6{ background-color: #3cb44b	}
-.bgc7{ background-color: #ffe119	}
-.bgc8{ background-color: #800000	}
-.bgc9{ background-color: #e6beff	}
+.fc-event.bgc0{ background-color: #7da838	}
+.fc-event.bgc1{ background-color: #0082c8	}
+.fc-event.bgc2{ background-color: #f58231	}
+.fc-event.bgc3{ background-color: #911eb4	}
+.fc-event.bgc4{ background-color: #46f0f0	}
+.fc-event.bgc5{ background-color: #f032e6	}
+.fc-event.bgc6{ background-color: #3cb44b	}
+.fc-event.bgc7{ background-color: #ffe119	}
+.fc-event.bgc8{ background-color: #800000	}
+.fc-event.bgc9{ background-color: #e6beff	}
 
 /* Buttons */
 .calendar-button{

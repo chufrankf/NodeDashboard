@@ -45,7 +45,6 @@ function load_edit_modals(){
 function setDashboardID(){
   var params = getURLSearchParams();
   var id = params.id;
-  console.log(params.id);
   if(id && parseInt(id) > 0){
     dashboard_id = parseInt(id);
     document.title = "Dashboard " + id;
