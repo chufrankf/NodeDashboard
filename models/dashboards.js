@@ -19,7 +19,7 @@ exports.selectDashboard = function(params, callback){
 
 exports.insertDashboard = function(params, callback){
     if(params.user_id && params.dash_id){
-        var values = [params.user_id, params.dash_id];
+        var values = [[params.user_id, params.dash_id]];
         var sql = 'INSERT INTO dashboards (user_id, dash_id) ' +
                   'VALUES ?';
         

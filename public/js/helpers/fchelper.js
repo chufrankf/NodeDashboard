@@ -10,9 +10,6 @@ var code_Errors = {
     INV_USR_PASS: "Incorrect username or password"
 };
 
-//Form variables
-var searchParams;
-
 /* 
 Functions 
 */
@@ -47,11 +44,8 @@ function parseURL(url) {
 
 //Get
 function getURLSearchParams(){
-    if(searchParams) return searchParams;
-    else{
-        searchParams = new URLSearchParams(window.location.search);
-        return searchParams;
-    }
+    var url = parseURL(window.location.href);
+    return url.query;
 }
 
 function getErrorMessage(code){

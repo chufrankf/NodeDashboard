@@ -43,8 +43,10 @@ function load_edit_modals(){
 }
 
 function setDashboardID(){
-  var id = getURLSearchParams().get('id');
-  if(id && typeof(id) === 'number' && parseInt(id) > 0){
+  var params = getURLSearchParams();
+  var id = params.id;
+  console.log(params.id);
+  if(id && parseInt(id) > 0){
     dashboard_id = parseInt(id);
     document.title = "Dashboard " + id;
   }
