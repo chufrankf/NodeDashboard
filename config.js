@@ -18,7 +18,11 @@ var config = {
       //Google Client
       google_client_id: process.env.GOOGLE_CLIENT_ID,
       google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      google_api_key: process.env.GOOGLE_API_KEY
+      google_api_key: process.env.GOOGLE_API_KEY,
+
+      //Other Constants
+      max_dashboards: 10,
+      dashboard_default_name: "Dashboard - "
     }
   }
   

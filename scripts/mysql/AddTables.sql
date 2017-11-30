@@ -8,6 +8,7 @@
 CREATE TABLE IF NOT EXISTS dashboards (
  dash_id TINYINT UNSIGNED NOT NULL
 ,user_id VARCHAR(30) NOT NULL
+,name VARCHAR(20) NULL
 ,primary key(dash_id, user_id)
 );
 

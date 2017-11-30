@@ -26,6 +26,7 @@ exports.add = function(req, res) {
                 if(settingresult.success) addresult.user_settings = settingresult.result;
                 //Add home dashboard
                 params.dash_id = "0";
+                params.name = "Home";
                 mDashboards.insertDashboard(params, function(result){
                     res.send(addresult);
                 });
