@@ -15,9 +15,6 @@ module.exports = function(app){
 
     //Authorization
     var auth = require('./controllers/auth');
-    
-    //Dashboards
-    var dashboards = require('./controllers/dashboards');
 
     //Configs
     var configs = require('./controllers/configs')
@@ -38,7 +35,8 @@ module.exports = function(app){
     app.get('/api/dash/getbyuser', auth.verifyToken, dashboard.findByUser);
     app.get('/api/dash/get', auth.verifyToken, dashboard.findByPk);
     app.post('/api/dash/add', auth.verifyToken, dashboard.add);
-    app.delete('/api/dash/delete', auth.verifyToken, dashboards.delete);
+    app.delete('/api/dash/delete', auth.verifyToken, dashboard.delete);
+    app.post('/api/dash/update', auth.verifyToken, dashboard.update);
 
     //User Settings
     var user_settings = require('./controllers/user_settings');

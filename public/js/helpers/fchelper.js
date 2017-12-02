@@ -48,9 +48,17 @@ function getURLSearchParams(){
     return url.query;
 }
 
-function getErrorMessage(code){
-    if(code in code_Errors) return code_Errors[code];
-    else return code;
+function getErrorMessage(error){
+    if(error.code && typeof(error.code) === 'string'){
+        if(code in code_Errors) return code_Errors[code];
+        else return code;
+    }
+    else if(typeof(error) === 'string'){
+        return error
+    }
+    else{
+        return 'Invalid Error Returned'
+    }
 }
 
 function getNextGridIndex(arr){

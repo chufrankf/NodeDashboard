@@ -62,6 +62,18 @@ function ajax_user_login(values, callback){
     });
 }
 
+function ajax_dashboard_delete(values, callback){
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/dash/delete',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: JSON.stringify(values),
+        success: callback
+    });
+}
+
 //POST
 function ajax_user_add(values, callback){
     $.ajax({
@@ -81,6 +93,18 @@ function ajax_dashboard_add(callback){
         headers: { 'x-access-token' : sessionStorage.access_token},
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
+        success: callback
+    });
+}
+
+function ajax_dashboard_update(values, callback){
+    $.ajax({
+        type: 'POST',
+        url: '/api/dash/update',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: JSON.stringify(values),
         success: callback
     });
 }

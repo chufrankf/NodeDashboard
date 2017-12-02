@@ -63,6 +63,19 @@ a.home-dash{
   margin: 0px;
 }
 
+/*Context Menu*/
+div.bootstrapMenu>ul.dropdown-menu {
+    padding: 4px 0px 4px 0px;
+}
+
+li.dash-list-contextmenu>a[role="menuitem"]{
+    text-decoration: none;
+}
+
+li.dash-list-contextmenu>a[role="menuitem"]:hover{
+    background-color: #dadada;
+}
+
 /* 
 Dashboard Link Animations
 */
@@ -144,4 +157,3 @@ Dashboard Link Animations
     text-decoration: none;
     background-color: transparent;
 }
-
