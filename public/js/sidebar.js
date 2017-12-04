@@ -16,9 +16,6 @@ function setDashboards(){
             //Fill the list with dashboards
             var items = [];
             $.each(res.result, function(i, item) {
-
-                //Do not include the Home dashboard
-                if(item.dash_id != "0")
                 items.push(create_dash_html(item.dash_id, item.name));
             });
             $('#dash-list').append(items.join(''));
