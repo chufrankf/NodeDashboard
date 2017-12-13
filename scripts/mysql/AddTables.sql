@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS dashbox_contents (
 */
 CREATE TABLE IF NOT EXISTS users (
  user_id VARCHAR(30) NOT NULL
-,pass VARCHAR(30) NOT NULL
+,pass VARCHAR(256) NOT NULL
 ,email VARCHAR(60) NOT NULL
 ,primary key(user_id)
 ,unique (email)
