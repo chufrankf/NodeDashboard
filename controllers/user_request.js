@@ -4,37 +4,56 @@ var mUserRequests = require('../models/user_request');
 //Actions
 exports.findById = function(req, res) {
     var params = {};
-    params.requestee = req.query.requestee;
+    params.requestee = req.user_id;
     
     mUserRequests.selectUserRequestsByUser(params, function(result){
         res.send(result);
     });
 };
 
+exports.findByRequestor = function(req, res) {
+    var params = {};
+    params.requestee = req.query.requestee;
+    params.requestor = req.query.ip;
+
+    mUserRequests.selectUserRequestsByRequestor(params, function(result){
+        res.send(result);
+    });
+}
+
 //Update
-exports.update = function(req, res) {
+exports.updateExternal = function(req, res) {
     var params = {};
     params.requestee = req.body.requestee;
-    
-    var request = [];
-    request.push(req.body.requestee);
-    request.push(req.body.seq);
-    request.push(req.body.requestor);
-    request.push(req.body.priority);
-    request.push(req.body.request);
-    request.push(req.connection.remoteAddress);
-    request.push(req.connection.remoteAddress);
-    params.values = [request];
+    params.requestor = req.body.ip;
 
-    mUserRequests.insertSingleRequest(params, function(insertresult){
-        if(insertresult.success){
-            mUserRequests.selectUserRequestsByUser(params, function(getresult){
-                if(getresult.success) insertresult.user_requests = getresult.result;
-                res.send(insertresult);
+    mUserRequests.getNextRequestSeq(params, function(nextseqresult){
+        if(nextseqresult.success){
+
+            var request = [];
+            request.push(req.body.requestee);
+            request.push(nextseqresult.result[0].seq);
+            request.push(req.body.requestor);
+            request.push(req.body.priority);
+            request.push(req.body.request);
+            request.push(req.body.ip);
+            request.push(req.body.requestor);
+            params.values = [request];
+
+            mUserRequests.insertSingleRequest(params, function(insertresult){
+                if(insertresult.success){
+                    mUserRequests.selectUserRequestsByRequestor(params, function(getresult){
+                        if(getresult.success) insertresult.user_requests = getresult.result;
+                        res.send(insertresult);
+                    });
+                }
+                else{
+                    res.send(insertresult);
+                }
             });
         }
         else{
-            res.send(insertresult);
+            res.send(nextseqresult);
         }
     });
 }

@@ -32,6 +32,18 @@ function ajax_request_get(values, callback){
     $.ajax({
         type: 'GET',
         url: '/api/requests/get',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: values,
+        success: callback
+    });
+}
+
+function ajax_request_getpublic(values, callback){
+    $.ajax({
+        type: 'GET',
+        url: '/api/requests/getPublic',
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         data: values,
@@ -136,7 +148,7 @@ function ajax_settings_update(values, callback){
 function ajax_request_update(values, callback){
     $.ajax({
         type: 'POST',
-        url: '/api/requests/update',
+        url: '/api/requests/updateExternal',
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         data: JSON.stringify(values),

@@ -95,3 +95,8 @@ function isLoggedIn(){
     else return false;
 }
 
+function getClientIp(callback){
+    $.getJSON("http://jsonip.com/?callback=?", function (data) {
+        return callback(data.ip);
+    });
+}

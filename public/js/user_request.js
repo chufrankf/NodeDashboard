@@ -43,25 +43,28 @@ $('#request-form').submit(function(e){
     //Get the values from the submit
     var values = {};
     $.each($('#request-form').serializeArray(), function(i, field) {
-        if(field.name === "seq" || field.name === "requestor" || field.name === "priority" || field.name === "request"){
+        if(field.name === "requestor" || field.name === "priority" || field.name === "request"){
             values[field.name] = field.value;
         }
-    });
+    });  
     values.requestee = user;
-
-    ajax_request_update(values, function(res){
-        if(res.success){
-            if(res.user_requests){
-                fillFields(res.user_requests);
-                $('#sent-form-link').click();
+    
+    getClientIp(function(ip){
+        values.ip = ip;
+        ajax_request_update(values, function(res){
+            if(res.success){
+                if(res.user_requests){
+                    fillFields(res.user_requests);
+                    $('#sent-form-link').click();
+                }
+                else{
+                    $('#req-submit').notify(getErrorMessage(res.error.code), {position: 'right', className: 'error'});
+                }
             }
             else{
                 $('#req-submit').notify(getErrorMessage(res.error.code), {position: 'right', className: 'error'});
             }
-        }
-        else{
-            $('#req-submit').notify(getErrorMessage(res.error.code), {position: 'right', className: 'error'});
-        }
+        });
     });
 
 });
@@ -71,23 +74,23 @@ function getStartupData(){
     var values = {};
 
     values.requestee = user;
-    ajax_request_get(values, function(res){
-        if(res.success){
-            fillFields(res.result)
-        }
-        else{
-          $.notify("Error getting requests: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
-        }
+    getClientIp(function(ip){
+        values.ip = ip;
+        ajax_request_getpublic(values, function(res){
+            if(res.success){
+                fillFields(res.result)
+            }
+            else{
+              $.notify("Error getting requests: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+            }
+        });
     });
 }
 
 function fillFields(results){
     var list = [];
-    var max_seq = 0;
 
     list = results.map(function(x){
-        max_seq = (x.seq > max_seq ? x.seq : max_seq);
-        
         var row = [];
         row.push(x.seq);
         row.push(x.requestor);
@@ -100,7 +103,6 @@ function fillFields(results){
     //Set seq
     $('input#requestor').val('').focus();
     $('textarea#request').val('');
-    $('input#seq').val(max_seq + 1);
 
     //Set datatable
     if($.fn.DataTable.isDataTable('#sent_table')){
