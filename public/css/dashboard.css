@@ -3,14 +3,21 @@ body {
 }
 
 /* Dashboard */
-.grid-stack{
+#page-content-wrapper{
   margin-top: 60px;
+  padding: 5px;
 }
+
 .grid-stack-item-content{
   padding: 1px;
 }
 
 /*Widget Items*/
+.grid-stack>.grid-stack-item>.grid-stack-item-content{
+  left: 1px;
+  right: 1px;
+}
+
 .item {
   background: #8CB5E5;
 }

@@ -20,6 +20,7 @@ $(document).ready(function(){
 function gridstack_start() {
   //Start gridstack
   $('.grid-stack').gridstack({
+    verticalMargin: '5px',
     draggable: {
         handle: '.item-icon.move-icon',
     }
