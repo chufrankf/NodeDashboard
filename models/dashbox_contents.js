@@ -33,6 +33,8 @@ exports.deleteContents = function(params, callback){
 
 exports.addContents = function(params, callback){
     if(params.values){
+        if (params.values.length === 0){ return callback({success: true}); }
+
         var sql = 'INSERT INTO dashbox_contents (user_id, dash_id, box_id, box_type, gs_x, gs_y, gs_height, gs_width, field01, field02, field03) ' +
                   'VALUES ?';
         

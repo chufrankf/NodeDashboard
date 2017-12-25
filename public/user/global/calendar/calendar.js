@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // page is now ready, initialize the calendar...
     var calendarAddress = [];
-    if(sessionStorage.user_settings && sessionStorage.user_settings != 'undefined' && sessionStorage.access_token  && sessionStorage.access_token != 'undefined'){
+    if(isLoggedIn() && sessionStorage.user_settings && sessionStorage.user_settings != 'undefined'){
         calendarAddress = $.grep(JSON.parse(sessionStorage.user_settings), function(x){
             return x.setting == 'Google Calendar Address';
         });

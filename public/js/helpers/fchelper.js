@@ -42,6 +42,32 @@ function parseURL(url) {
     };
 }
 
+//Cookies
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
 //Get
 function getURLSearchParams(){
     var url = parseURL(window.location.href);
@@ -91,12 +117,68 @@ function isNullOrUndefined(some_variable){
 }
 
 function isLoggedIn(){
-    if(sessionStorage.access_token && sessionStorage.access_token != 'undefined') return true;
-    else return false;
+    if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
+        return true;
+    }
+    else{
+        //attempt to get from cookies
+        var token = getCookie('DASH_JIBAGA_APITOKEN');
+        var user = getCookie('DASH_JIBAGA_USERNAME');
+        if(token && user){
+            saveSettionStorage(token, user);
+
+            //get user_settings
+            ajax_usersettings_get(function(res){
+                if(res.success){
+                    saveSettings(res.result);
+                }
+                else{
+                  $.notify("Error getting user settings: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+                }
+            }); 
+        
+            //reload dont want to do recursive in fear of infinite loop
+            if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
 }
 
 function getClientIp(callback){
     $.getJSON("http://jsonip.com/?callback=?", function (data) {
         return callback(data.ip);
     });
+}
+
+function clearCookies(){
+    eraseCookie('DASH_JIBAGA_APITOKEN');
+    eraseCookie('DASH_JIBAGA_USERNAME');
+}
+
+function saveToBrowser(token, user, settings){
+    //Set session storage
+    saveSettionStorage(token, user);
+
+    //Set settings
+    saveSettings(settings);
+
+    //Set cookies
+    setCookie('DASH_JIBAGA_APITOKEN', token, 365);
+    setCookie('DASH_JIBAGA_USERNAME', user, 365);
+}
+
+function saveSettionStorage(token, user){
+    sessionStorage.setItem('access_token',token);
+    sessionStorage.setItem('user_id',user);
+}
+
+function saveSettings(settings){
+    if(settings) sessionStorage.setItem('user_settings', JSON.stringify(settings));  
 }

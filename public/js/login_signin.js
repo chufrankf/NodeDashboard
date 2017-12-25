@@ -3,8 +3,8 @@ $(document).ready(function(){
 });
 
 //Variables
-var password = $('.login-form #password');
-var confirm_password = $('.login-form #confirm-password');
+var password = $('.login-form #reg-password');
+var confirm_password = $('.login-form #reg-confirm-password');
 
 //Validations
 function validatePassword(){
@@ -50,9 +50,7 @@ $('#register-form').submit(function(e){
 
     ajax_user_add(values, function(res){
         if(res.success){
-            sessionStorage.setItem('access_token',res.result);
-            sessionStorage.setItem('user_id',values.user_id);
-            if(res.user_settings) sessionStorage.setItem('user_settings', JSON.stringify(res.user_settings));                            
+            saveToBrowser(res.result, values.user_id, res.user_settings);
             document.location.href = '/';
         }
         else{
@@ -76,9 +74,7 @@ $('#login-form').submit(function(e){
     ajax_user_login(values, function(res){
         if(res.success){
             if(res.result && values.user_id){
-                sessionStorage.setItem('access_token',res.result);
-                sessionStorage.setItem('user_id',values.user_id);
-                if(res.user_settings) sessionStorage.setItem('user_settings', JSON.stringify(res.user_settings));                
+                saveToBrowser(res.result, values.user_id, res.user_settings);
                 document.location.href = '/';
             }
             else{

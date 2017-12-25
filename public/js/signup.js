@@ -35,8 +35,7 @@ $('#form-signin').submit(function(e){
 
     ajax_user_add(values, function(res){
         if(res.success){
-            sessionStorage.setItem('access_token',res.token);
-            sessionStorage.setItem('user_id',values.user_id);
+            saveToBrowser(res.result, values.user_id, null);
             document.location.href = '/';
         }
         else{
