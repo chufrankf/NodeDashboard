@@ -50,18 +50,22 @@
     }
 
     var user = sessionStorage.user_id;
-    if(isLoggedIn()){
+
+    validateLogin(function(isloggedin){
+      if(isloggedin){
         $('#user-profile-nav').show();
         $('#profile-link').text('Welcome, ' + user);
         $('#user-signin-nav').hide();
-    }
-    else{
-        $('#user-signin-nav').show();
-        $('#user-profile-nav').hide();
-    }
+      }
+      else{
+          $('#user-signin-nav').show();
+          $('#user-profile-nav').hide();
+      }
 
-    var params = {user: user};
-    if(params.user) $('a.dropdown-item.requests').attr('href', "/user/requests?" + jQuery.param(params));
+      var params = {user: user};
+      if(params.user) $('a.dropdown-item.requests').attr('href', "/user/requests?" + jQuery.param(params));
+
+    });
 
     $(".signout-click").click(function () {
       sessionStorage.clear();

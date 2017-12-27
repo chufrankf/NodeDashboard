@@ -11,7 +11,7 @@ var config = {
       port: 3000,
       
       //Tokens
-      token_length: 36000, // 1 hour
+      token_length: 604800, // 7 days
       token_key: process.env.ACCESS_TOKEN_SECRET,
       header_tk_id: 'x-access-token',
 

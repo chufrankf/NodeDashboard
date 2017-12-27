@@ -57,37 +57,42 @@ function setDashboardID(){
 }
 
 function fill_dashboard(){
-  if(isLoggedIn()){
-    var values = {dash_id: dashboard_id};
+  validateLogin(function(isloggedin){
+    if(isloggedin){
+      var values = {dash_id: dashboard_id};
 
-    ajax_dashbox_get(values, function(res){
-      if(res.success){
-        res.result.forEach(function(x){
-          set_edit_mode(true);
-          add_element(x.gs_x
-                     ,x.gs_y
-                     ,x.gs_width
-                     ,x.gs_height
-                     ,false
-                     ,null
-                     ,null
-                     ,null
-                     ,null
-                     ,x.box_id
-                     ,{ box_type: x.box_type
-                       ,field01:  x.field01
-                       ,field02:  x.field02
-                       ,field03:  x.field03}
-                    );
-          set_edit_mode(false);
-        });
-        $.notify("Dashboard Loaded",  {position: 'bottom left', className: 'success'});
-      }
-      else{
-        $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
-      }
-    });
-  }
+      ajax_dashbox_get(values, function(res){
+        if(res.success){
+          res.result.forEach(function(x){
+            set_edit_mode(true);
+            add_element(x.gs_x
+                      ,x.gs_y
+                      ,x.gs_width
+                      ,x.gs_height
+                      ,false
+                      ,null
+                      ,null
+                      ,null
+                      ,null
+                      ,x.box_id
+                      ,{ box_type: x.box_type
+                        ,field01:  x.field01
+                        ,field02:  x.field02
+                        ,field03:  x.field03}
+                      );
+            set_edit_mode(false);
+          });
+          $.notify("Dashboard Loaded",  {position: 'bottom left', className: 'success'});
+        }
+        else{
+          $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+        }
+      });
+    }
+    else{
+      $.notify("Showing demo version, please login for full functionality", {position: 'bottom left', className: 'warning'});
+    }
+  });
 }
 
 /******
@@ -203,21 +208,22 @@ function save_element(){
     }
   });
 
-  if(isLoggedIn()) {
-    //send the element to the database
-    ajax_dashbox_update(values, function(res){
-      if(res.success){
-        $.notify("Dashboard Saved", {position: 'bottom left', className: 'success'});
-      }
-      else{
-        $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
-      }
-    });
-  }
-  else {
-    $.notify('Unable to save: Not Logged In', {position: 'bottom left', className: 'success'});
-  }
-   
+  validateLogin(function(isloggedin){
+    if(isloggedin){
+      //send the element to the database
+      ajax_dashbox_update(values, function(res){
+        if(res.success){
+          $.notify("Dashboard Saved", {position: 'bottom left', className: 'success'});
+        }
+        else{
+          $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+        }
+      });
+    }
+    else {
+      $.notify('Unable to save: Not Logged In', {position: 'bottom left', className: 'success'});
+    }
+  })
 }
 
 //Get Item element

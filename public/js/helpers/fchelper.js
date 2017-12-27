@@ -116,37 +116,51 @@ function isNullOrUndefined(some_variable){
     return typeof(some_variable) === 'undefined' || some_variable == null;
 }
 
-function isLoggedIn(){
+function validateLogin(callback){
     if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
-        return true;
+
+        ajax_authentication_get(function(res){
+            if(res.success){
+                return callback(true);
+            }
+            else{
+                return callback(false);
+            }
+        });
     }
     else{
         //attempt to get from cookies
         var token = getCookie('DASH_JIBAGA_APITOKEN');
         var user = getCookie('DASH_JIBAGA_USERNAME');
+
         if(token && user){
             saveSettionStorage(token, user);
 
-            //get user_settings
-            ajax_usersettings_get(function(res){
-                if(res.success){
-                    saveSettings(res.result);
+            ajax_authentication_get(function(res){
+                if(res.success && res.result == user){
+                    //get user_settings
+                    ajax_usersettings_get(function(res){
+                        if(res.success){
+                            saveSettings(res.result);
+                        }
+                        else{
+                            $.notify("Error getting user settings: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+                        }
+                    }); 
+                    
+                    //reload dont want to do recursive in fear of infinite loop
+                    if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
+                        return callback(true);
+                    }
                 }
                 else{
-                  $.notify("Error getting user settings: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+                    //re-login
+                    return callback(false);
                 }
-            }); 
-        
-            //reload dont want to do recursive in fear of infinite loop
-            if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
-                return true;
-            }
-            else{
-                return false;
-            }
+            });
         }
         else{
-            return false;
+            return callback(false);
         }
     }
 }

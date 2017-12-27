@@ -15,10 +15,11 @@ module.exports = function(app){
 
     //Authorization
     var auth = require('./controllers/auth');
+    app.get('/api/auth/verify/get', auth.validateToken);
 
     //Configs
     var configs = require('./controllers/configs')
-    app.get('/api/config/get', auth.verifyToken, configs.getConfig)
+    app.get('/api/config/get', auth.verifyToken, configs.getConfig);
 
     //Users
     var users = require('./controllers/users');
@@ -56,5 +57,5 @@ module.exports = function(app){
     app.post('/api/requests/updatestatus', auth.verifyToken, user_requests.updateStatus);
 
     //Add additional controllers here
-    
+
 }

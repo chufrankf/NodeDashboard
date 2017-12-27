@@ -11,18 +11,22 @@ $(document).ready(function(){
 
 //Methods
 function setDashboards(){
-    ajax_dashboard_get(function(res){
-        if(res.success){
-            //Fill the list with dashboards
-            var items = [];
-            $.each(res.result, function(i, item) {
-                items.push(create_dash_html(item.dash_id, item.name));
+    validateLogin(function(isloggedin){
+        if(isloggedin){
+            ajax_dashboard_get(function(res){
+                if(res.success){
+                    //Fill the list with dashboards
+                    var items = [];
+                    $.each(res.result, function(i, item) {
+                        items.push(create_dash_html(item.dash_id, item.name));
+                    });
+                    $('#dash-list').append(items.join(''));
+                    
+                }
+                else{
+                    $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
+                }
             });
-            $('#dash-list').append(items.join(''));
-            
-        }
-        else{
-            $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
         }
     });
 }

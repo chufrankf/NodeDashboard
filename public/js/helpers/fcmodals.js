@@ -51,6 +51,15 @@ var mEmbeddedWebpage = {
         }
    }
 };
+var mLobilist = {
+    id: 5
+   ,name: "To Do List (Lobilist)"
+   ,href: null
+   ,description: 'Multi-column, draggable to do list made by github.com/arboshiki.'
+   ,content: function(widget, values){
+    widget.load("/user/global/todolist/todolist.html");
+   }
+};
 
 //Item Types
 var dashConstants = {

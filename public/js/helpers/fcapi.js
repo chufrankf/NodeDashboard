@@ -73,6 +73,17 @@ function ajax_usersettings_get(callback){
     });
 }
 
+function ajax_authentication_get(callback){
+    $.ajax({
+        type: 'GET',
+        url: '/api/auth/verify/get',
+        headers: { 'x-access-token' : sessionStorage.access_token},
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: callback
+    });
+}
+
 //PUT
 function ajax_user_login(values, callback){
     $.ajax({
