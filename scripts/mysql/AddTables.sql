@@ -127,3 +127,41 @@ CREATE TABLE IF NOT EXISTS code_description (
 ,primary key(field, code)
 );
 
+/*
+* TO DO LIST columns
+* stackrank: primary key
+* column_name:
+* user_id: user
+*/
+
+CREATE TABLE IF NOT EXISTS todolist_columns (
+ stackrank INT NOT NULL
+,user_id VARCHAR(30) NOT NULL
+,column_name VARCHAR(255) NULL
+,PRIMARY KEY (user_id, stackrank)
+);
+
+/*
+* TO DO LIST items
+* This list is to organize the things to do. Allow the user to create new personal items and assign dates to them.
+* stackrank: identifies the order of which they appear
+* status: (1-Active, 2-Resolved)
+* title: title
+* description: description
+* column_name: string
+* user: user
+* id: primary key
+*/
+
+CREATE TABLE IF NOT EXISTS todolist_items (
+ id INT NOT NULL AUTO_INCREMENT
+,user_id VARCHAR(30) NOT NULL
+,date VARCHAR(30) NOT NULL
+,column_name VARCHAR(255) NULL
+,swimlane VARCHAR(255) NULL
+,title VARCHAR(255) NULL
+,description VARCHAR(255) NULL
+,status TINYINT NOT NULL DEFAULT 1
+,stackrank INT NOT NULL DEFAULT 1
+,PRIMARY KEY (id)
+);

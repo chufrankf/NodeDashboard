@@ -19,7 +19,7 @@ var mGoogleCalendar = {
     id: 2
    ,name: "Google Calendar" 
    ,href:"/user/global/calendar/calendar.html"
-   ,dimensions: {width: 6, height: 6}
+   ,dimensions: {width: 6, height: 20}
    ,description: 'Google Calendar widget uses your google account and generates a calendar based on the main.'
    ,fields: [
        {id: 0, db: 'field01', type:'text', name:'calendars', name_class:'col-md-3 form-control', label:'User Calendars:', label_class:'col-md-3 left-align'}
@@ -55,6 +55,7 @@ var mLobilist = {
     id: 5
    ,name: "To Do List (Lobilist)"
    ,href: null
+   ,dimensions: {width: 3, height: 10}
    ,description: 'Multi-column, draggable to do list made by github.com/arboshiki.'
    ,content: function(widget, values){
     widget.load("/user/global/todolist/todolist.html");
@@ -67,7 +68,8 @@ var dashConstants = {
     CustomHTML: mCustomHTML,
     GoogleCalendar: mGoogleCalendar,
     RequestList: mRequestList,
-    EmbeddedWebpage: mEmbeddedWebpage
+    EmbeddedWebpage: mEmbeddedWebpage,
+    Lobilist: mLobilist
 };
 
 // ModalSelect-Codes
@@ -77,7 +79,8 @@ var code_EditSelect = {
     dashConstants.CustomHTML,
     dashConstants.GoogleCalendar,
     dashConstants.RequestList,
-    dashConstants.EmbeddedWebpage
+    dashConstants.EmbeddedWebpage,
+    dashConstants.Lobilist
     ]
 };
 

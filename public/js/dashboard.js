@@ -20,7 +20,8 @@ $(document).ready(function(){
 function gridstack_start() {
   //Start gridstack
   $('.grid-stack').gridstack({
-    verticalMargin: '5px',
+    cellHeight: 20,
+    verticalMargin: 5,
     draggable: {
         handle: '.item-icon.move-icon',
     }

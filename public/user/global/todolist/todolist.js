@@ -13,9 +13,31 @@ $(document).ready(function(){
                 ]
             }
         ],
-        afterListAdd: function(lobilist, list){
-            var $dueDateInput = list.$el.find('form [name=dueDate]');
-            $dueDateInput.datepicker();
-        }
+        titleChange: updateToDoListColumns,
+        afterListAdd: updateToDoListColumns,
+        afterListRemove: updateToDoListColumns,
+        afterListReorder: updateToDoListColumns,
+        afterMarkAsDone: updateToDoListItem,
+        afterMarkAsUndone: updateToDoListItem,
+        afterItemAdd: insertNewToDoListItem,
+        afterItemUpdate: updateToDoListItem,
+        afterItemDelete: updateToDoListItem,
+        afterItemReorder: updateToDoListItem
     });
 })
+function updateColumnNameChange(list, name){
+    console.log(lobilist);
+    console.log(name);
+}
+function updateToDoListColumns(lobilist, list){
+    console.log(lobilist);
+    console.log(list);
+}
+function insertNewToDoListItem(lobilist, item){
+    console.log(lobilist);
+    console.log(item);
+}
+function updateToDoListItem(lobilist, item){
+    console.log(lobilist);
+    console.log(item);
+}
