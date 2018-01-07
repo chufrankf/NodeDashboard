@@ -39,7 +39,7 @@ var mRequestList = {
 };
 var mEmbeddedWebpage = {
     id: 4
-   ,name: "Embedded Webpage"
+   ,name: "Embedded Webpage (Object)"
    ,href: null
    ,description: 'Embedded Webpage places the below website into an iframe widget. This will only work for websites which have enabled their x-frame-options to outside origins.'
    ,fields: [
@@ -61,6 +61,31 @@ var mLobilist = {
     widget.load("/user/global/todolist/todolist.html");
    }
 };
+var mLaverna = {
+    id: 6
+   ,name: "Notes (Laverna)"
+   ,href: null
+   ,dimensions: {width: 8, height: 20}
+   ,description: 'Laverna is a platform to save notes to a dropbox. If you want to use its syncing ability go to Settings -> Sync -> Select Dropbox and add your Dropbox APP Key. For more information about Laverna please see their github at: https://github.com/Laverna/laverna'
+   ,content: function(widget, values){
+        widget.html('<object data="https://laverna.cc/app/" class="embedded-webpage"></object>');
+   }
+};
+var mEmbeddedWebpageHTML = {
+    id: 7
+   ,name: "Embedded Webpage (HTML)"
+   ,href: null
+   ,dimensions: {width: 8, height: 20}
+   ,description: 'Embedded Webpage places the below html into the frame.'
+   ,fields: [
+        {id: 0, db: 'field01', type:'text', name:'html', name_class:'col-md-9 form-control', label:'HTML:', label_class:'col-md-2 left-align'}
+    ]
+   ,content: function(widget, values){
+        if (!isNullOrUndefined(values.field01)) { 
+            widget.html(values.field01);
+        }
+    }
+};
 
 //Item Types
 var dashConstants = {
@@ -69,18 +94,21 @@ var dashConstants = {
     GoogleCalendar: mGoogleCalendar,
     RequestList: mRequestList,
     EmbeddedWebpage: mEmbeddedWebpage,
-    Lobilist: mLobilist
+    EmbeddedWebpageHTML: mEmbeddedWebpageHTML,
+    Lobilist: mLobilist,
+    Laverna: mLaverna
 };
 
 // ModalSelect-Codes
 var code_EditSelect = {
     select_types:[
     dashConstants.None,
-    dashConstants.CustomHTML,
     dashConstants.GoogleCalendar,
     dashConstants.RequestList,
     dashConstants.EmbeddedWebpage,
-    dashConstants.Lobilist
+    dashConstants.EmbeddedWebpageHTML,
+    dashConstants.Lobilist,
+    dashConstants.Laverna
     ]
 };
 

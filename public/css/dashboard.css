@@ -84,7 +84,7 @@ object.embedded-webpage {
 
 /* Modal */
 .modal-body {
-  padding: 0;
+  padding: 10px;
   background-color: #FDEEE8;
 }
 
@@ -99,6 +99,11 @@ object.embedded-webpage {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   border-radius: 0px;
+}
+
+#edit_modal #select-itemtypes>option{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #edit_modal label.left-align {

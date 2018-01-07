@@ -1,32 +1,36 @@
 
 <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div id="edit-modal-target" class="modal-body"> Loading... </div>
             <script id="edit-modal-template" type="x-tmpl-mustache">
                 <div class="container-fluid">
                     <form id="form-edititem" role="form">
                         <div class="form-group row">
-                           <select class="col-sm-12 form-control full-div" name="box_type" id="select-itemtypes">
-                               {{#select_types}}<option value="{{id}}">{{name}}</option>{{/select_types}}
-                           </select>
-                        </div>
-                        {{#select_types}}
-                        <div class="edit-modal-form-switch" key="{{id}}">
-                            <div class="form-group row description">
-                                <p class="left-align">{{description}}</p>
+                            <div class="col-sm-3">
+                                <select class="form-control full-div" name="box_type" id="select-itemtypes" size="5">
+                                    {{#select_types}}<option value="{{id}}">{{name}}</option>{{/select_types}}
+                                </select>
                             </div>
-                            {{#fields}}
-                            <div class="form-group row">
-                                <label class="{{label_class}}" for="input-{{name}}">{{label}}</label>
-                                <input class="{{name_class}}" name="{{name}}" type="{{type}}" id="input-{{name}}"></input>
+                            <div class="col-sm-9">
+                                {{#select_types}}
+                                <div class="edit-modal-form-switch" key="{{id}}">
+                                    <div class="form-group row description">
+                                        <p class="left-align">{{description}}</p>
+                                    </div>
+                                    {{#fields}}
+                                    <div class="form-group row">
+                                        <label class="{{label_class}}" for="input-{{name}}">{{label}}</label>
+                                        <input class="{{name_class}}" name="{{name}}" type="{{type}}" id="input-{{name}}"></input>
+                                    </div>
+                                    {{/fields}}
+                                </div>
+                                {{/select_types}}
                             </div>
-                            {{/fields}}
                         </div>
-                        {{/select_types}}
                         <div class="form-group row buttons">
-                            <button type="button" class="btn btn-secondary col-md-3" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary col-md-6" id="saveEditItem-button">Save changes</button>
+                            <button type="button" class="btn btn-secondary col-sm-3" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary col-sm-6" id="saveEditItem-button">Save changes</button>
                         </div>
                     </form>
                 </div>

@@ -231,7 +231,7 @@ function save_element(){
 function get_item_element(values){
   // create new item elements
   var $items = $('<div class="grid-stack-item">' + 
-                  '<div class="grid-stack-item-content item"></div>' +
+                  '<div class="grid-stack-item-content item disabled"></div>' +
                   '<i class="fa fa-wrench fa-lg item-icon edit-icon" onclick="edit_widget(this)" aria-hidden="true"></i>' +
                   '<i class="fa fa-times fa-lg item-icon delete-icon" onclick="delete_widget(this)" aria-hidden="true"></i>' + 
                   '<i class="fa fa-arrows fa-md item-icon move-icon" aria-hidden="true"></i>' +
