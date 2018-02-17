@@ -13,7 +13,7 @@ $(document).ready(function(){
 function setDashboards(){
     validateLogin(function(isloggedin){
         if(isloggedin){
-            ajax_dashboard_get(function(res){
+            api.ajax_dashboard_get(function(res){
                 if(res.success){
                     //Fill the list with dashboards
                     var items = [];
@@ -72,7 +72,7 @@ function addContextMenu(){
                         values.dash_id = $elem.data().id.toString();
                         values.name = $.trim($child.text());
                         if(values.name != startName){
-                            ajax_dashboard_update(values, function(res){
+                            api.ajax_dashboard_update(values, function(res){
                                 if(res.success){
                                     $.notify("Name changed to " + values.name, {position: 'bottom left', className: 'success'});            
                                 }
@@ -96,7 +96,7 @@ function addContextMenu(){
                     values.dash_id = $elem.data().id.toString();
 
                     //Delete from the database
-                    ajax_dashboard_delete(values, function(res){
+                    api.ajax_dashboard_delete(values, function(res){
                         if(res.success){
                             $('#dash-list>li[data-id="' + values.dash_id + '"]').remove();
                         }
@@ -116,7 +116,7 @@ function addContextMenu(){
 //Add dashboard click
 $(document).on('click', '#add-dash', function(event){
     //Add a new dashboard item
-    ajax_dashboard_add(function(res){
+    api.ajax_dashboard_add(function(res){
         if(res.success){
             //Add the item to the dashboard list
             $('#dash-list').append(create_dash_html(res.added.dash_id, res.added.name));

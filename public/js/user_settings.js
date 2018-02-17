@@ -39,7 +39,7 @@ function update_row(updated_cell, updated_row, old_value) {
         values.setting = updated_row.data()[0];
         values.value  = updated_row.data()[2];
 
-        ajax_settings_update(values, function(res){
+        api.ajax_settings_update(values, function(res){
             if(res.success){
               $.notify("Saved " + values.setting + " as " + values.value, {position: 'bottom left', className: 'success'});
               //refill user settings table

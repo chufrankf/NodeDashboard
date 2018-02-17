@@ -62,7 +62,7 @@ function fill_dashboard(){
     if(isloggedin){
       var values = {dash_id: dashboard_id};
 
-      ajax_dashbox_get(values, function(res){
+      api.ajax_dashbox_get(values, function(res){
         if(res.success){
           res.result.forEach(function(x){
             set_edit_mode(true);
@@ -212,7 +212,7 @@ function save_element(){
   validateLogin(function(isloggedin){
     if(isloggedin){
       //send the element to the database
-      ajax_dashbox_update(values, function(res){
+      api.ajax_dashbox_update(values, function(res){
         if(res.success){
           $.notify("Dashboard Saved", {position: 'bottom left', className: 'success'});
         }

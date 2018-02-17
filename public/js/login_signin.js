@@ -48,7 +48,7 @@ $('#register-form').submit(function(e){
         }
     });    
 
-    ajax_user_add(values, function(res){
+    api.ajax_user_add(values, function(res){
         if(res.success){
             saveToBrowser(res.result, values.user_id, res.user_settings);
             document.location.href = '/';
@@ -71,7 +71,7 @@ $('#login-form').submit(function(e){
         }
     });    
 
-    ajax_user_login(values, function(res){
+    api.ajax_user_login(values, function(res){
         if(res.success){
             if(res.result && values.user_id){
                 saveToBrowser(res.result, values.user_id, res.user_settings);

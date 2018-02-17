@@ -28,7 +28,7 @@ function getStartupData(){
     var values = {};
 
     values.requestee = sessionStorage.user_id;
-    ajax_request_get(values, function(res){
+    api.ajax_request_get(values, function(res){
         if(res.success){
             fillFields(res.result)
         }
@@ -221,7 +221,7 @@ function updateStatus(dt, new_status, text){
         values.new_status = new_status;
         values.elements = dt;
     
-        ajax_request_updatestatus(values, function(res){
+        api.ajax_request_updatestatus(values, function(res){
             if(res.success){
                 if(res.user_requests){
                     fillFields(res.user_requests);

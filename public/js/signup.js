@@ -33,7 +33,7 @@ $('#form-signin').submit(function(e){
         }
     });    
 
-    ajax_user_add(values, function(res){
+    api.ajax_user_add(values, function(res){
         if(res.success){
             saveToBrowser(res.result, values.user_id, null);
             document.location.href = '/';

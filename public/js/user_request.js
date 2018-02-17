@@ -51,7 +51,7 @@ $('#request-form').submit(function(e){
     
     getClientIp(function(ip){
         values.ip = ip;
-        ajax_request_update(values, function(res){
+        api.ajax_request_update(values, function(res){
             if(res.success){
                 if(res.user_requests){
                     fillFields(res.user_requests);
@@ -76,7 +76,7 @@ function getStartupData(){
     values.requestee = user;
     getClientIp(function(ip){
         values.ip = ip;
-        ajax_request_getpublic(values, function(res){
+        api.ajax_request_getpublic(values, function(res){
             if(res.success){
                 fillFields(res.result)
             }

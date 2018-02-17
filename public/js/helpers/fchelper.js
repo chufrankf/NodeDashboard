@@ -119,7 +119,7 @@ function isNullOrUndefined(some_variable){
 function validateLogin(callback){
     if(sessionStorage.access_token && sessionStorage.access_token != 'undefined'){
 
-        ajax_authentication_get(function(res){
+        api.ajax_authentication_get(function(res){
             if(res.success){
                 return callback(true);
             }
@@ -136,10 +136,10 @@ function validateLogin(callback){
         if(token && user){
             saveSettionStorage(token, user);
 
-            ajax_authentication_get(function(res){
+            api.ajax_authentication_get(function(res){
                 if(res.success && res.result == user){
                     //get user_settings
-                    ajax_usersettings_get(function(res){
+                    api.ajax_usersettings_get(function(res){
                         if(res.success){
                             saveSettings(res.result);
                         }

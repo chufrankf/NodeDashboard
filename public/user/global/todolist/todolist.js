@@ -15,7 +15,7 @@ $(document).ready(function(){
         ],
         titleChange: updateToDoListColumns,
         afterListAdd: updateToDoListColumns,
-        afterListRemove: updateToDoListColumns,
+        afterListRemove: removeColumns,
         afterListReorder: updateToDoListColumns,
         afterMarkAsDone: updateToDoListItem,
         afterMarkAsUndone: updateToDoListItem,
@@ -25,19 +25,23 @@ $(document).ready(function(){
         afterItemReorder: updateToDoListItem
     });
 })
-function updateColumnNameChange(list, name){
-    console.log(lobilist);
-    console.log(name);
-}
-function updateToDoListColumns(lobilist, list){
-    console.log(lobilist);
+function updateColumnNameChange(list, item){
     console.log(list);
-}
-function insertNewToDoListItem(lobilist, item){
-    console.log(lobilist);
     console.log(item);
 }
-function updateToDoListItem(lobilist, item){
-    console.log(lobilist);
+function updateToDoListColumns(list, item){
+    console.log(list);
+    console.log(item);
+}
+function insertNewToDoListItem(list, item){
+    console.log(list);
+    console.log(item);
+}
+function updateToDoListItem(list, item){
+    console.log(list);
+    console.log(item);
+}
+function removeColumns(list, item){
+    console.log(list);
     console.log(item);
 }

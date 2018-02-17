@@ -17,7 +17,7 @@ $(document).ready(function(){
                 return address;
             });
             
-            ajax_configs_get({key: 'google_api_key'}, function(res){
+            api.ajax_configs_get({key: 'google_api_key'}, function(res){
                 if(res.success){ 
                     $('#calendar').fullCalendar({
                         googleCalendarApiKey: res.result,
