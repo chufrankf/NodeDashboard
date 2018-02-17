@@ -35,11 +35,11 @@ $('#form-signin').submit(function(e){
 
     api.ajax_user_add(values, function(res){
         if(res.success){
-            saveToBrowser(res.result, values.user_id, null);
+            HelperFunctions.saveToBrowser(res.result, values.user_id, null);
             document.location.href = '/';
         }
         else{
-            throwSigninError(getErrorMessage(res.error.code));
+            throwSigninError(HelperFunctions.getErrorMessage(res.error.code));
         }
     });
 });

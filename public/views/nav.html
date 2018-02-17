@@ -41,7 +41,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    var url = parseURL(window.location.href);
+    var url = HelperFunctions.parseURL(window.location.href);
     if(url.pathname == '/'){
       $('#sidebar-toggle').show();
     }
@@ -51,7 +51,7 @@
 
     var user = sessionStorage.user_id;
 
-    validateLogin(function(isloggedin){
+    HelperFunctions.validateLogin(function(isloggedin){
       if(isloggedin){
         $('#user-profile-nav').show();
         $('#profile-link').text('Welcome, ' + user);
@@ -69,7 +69,7 @@
 
     $(".signout-click").click(function () {
       sessionStorage.clear();
-      clearCookies();
+      HelperFunctions.clearCookies();
     });
   });
 </script>

@@ -21,7 +21,7 @@ $(document).on('click', '#saveEditItem-button', function(event){
     });
 
     //Map the values to the db values
-    if(!isNullOrUndefined(getContentData(values.box_type).fields)){
+    if(!HelperFunctions.isNullOrUndefined(getContentData(values.box_type).fields)){
         getContentData(values.box_type).fields.forEach(function(x){
             values[x.db] = values[x.name];
         });
@@ -61,19 +61,19 @@ function toggleSelectedType(widget){
     var selected = 0;
 
     //If default, get the selected option
-    if(isNullOrUndefined(widget)){
+    if(HelperFunctions.isNullOrUndefined(widget)){
       selected = $('#select-itemtypes option:selected').val();
     }
     else {
         //Get the box type
-        selected = isNullOrUndefined(widget.data('box_type')) ? selected : widget.data('box_type');
+        selected = HelperFunctions.isNullOrUndefined(widget.data('box_type')) ? selected : widget.data('box_type');
         $('#select-itemtypes').val(selected);
 
         //Fill the default contents
         //For each field set the value from the widget data
-        if(!isNullOrUndefined(getContentData(selected).fields)){
+        if(!HelperFunctions.isNullOrUndefined(getContentData(selected).fields)){
             getContentData(selected).fields.forEach(function(x){
-                $('#input-' + x.name).val(isNullOrUndefined(widget.data(x.db)) ? "" : widget.data(x.db));
+                $('#input-' + x.name).val(HelperFunctions.isNullOrUndefined(widget.data(x.db)) ? "" : widget.data(x.db));
             });
         }
     }

@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 //Methods
 function setDashboards(){
-    validateLogin(function(isloggedin){
+    HelperFunctions.validateLogin(function(isloggedin){
         if(isloggedin){
             api.ajax_dashboard_get(function(res){
                 if(res.success){
@@ -24,7 +24,7 @@ function setDashboards(){
                     
                 }
                 else{
-                    $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
+                    $.notify("Error: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
                 }
             });
         }
@@ -77,7 +77,7 @@ function addContextMenu(){
                                     $.notify("Name changed to " + values.name, {position: 'bottom left', className: 'success'});            
                                 }
                                 else{
-                                    $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
+                                    $.notify("Error: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
                                 }
                             })
                         }
@@ -101,7 +101,7 @@ function addContextMenu(){
                             $('#dash-list>li[data-id="' + values.dash_id + '"]').remove();
                         }
                         else{
-                            $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
+                            $.notify("Error: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
                         }
                     });
 
@@ -122,7 +122,7 @@ $(document).on('click', '#add-dash', function(event){
             $('#dash-list').append(create_dash_html(res.added.dash_id, res.added.name));
         }
         else{
-            $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
+            $.notify("Error: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});            
         }
     });
 });

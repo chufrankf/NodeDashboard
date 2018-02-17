@@ -3,7 +3,7 @@ var user;
 
 $(document).ready(function(){
     //Get Query Parameters
-    var url = parseURL(window.location.href);
+    var url = HelperFunctions.parseURL(window.location.href);
     user = url.query.user;
     $('#user-header').text(user.toUpperCase());
 
@@ -49,7 +49,7 @@ $('#request-form').submit(function(e){
     });  
     values.requestee = user;
     
-    getClientIp(function(ip){
+    HelperFunctions.getClientIp(function(ip){
         values.ip = ip;
         api.ajax_request_update(values, function(res){
             if(res.success){
@@ -58,11 +58,11 @@ $('#request-form').submit(function(e){
                     $('#sent-form-link').click();
                 }
                 else{
-                    $('#req-submit').notify(getErrorMessage(res.error.code), {position: 'right', className: 'error'});
+                    $('#req-submit').notify(HelperFunctions.getErrorMessage(res.error.code), {position: 'right', className: 'error'});
                 }
             }
             else{
-                $('#req-submit').notify(getErrorMessage(res.error.code), {position: 'right', className: 'error'});
+                $('#req-submit').notify(HelperFunctions.getErrorMessage(res.error.code), {position: 'right', className: 'error'});
             }
         });
     });
@@ -74,14 +74,14 @@ function getStartupData(){
     var values = {};
 
     values.requestee = user;
-    getClientIp(function(ip){
+    HelperFunctions.getClientIp(function(ip){
         values.ip = ip;
         api.ajax_request_getpublic(values, function(res){
             if(res.success){
                 fillFields(res.result)
             }
             else{
-              $.notify("Error getting requests: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+              $.notify("Error getting requests: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
             }
         });
     });

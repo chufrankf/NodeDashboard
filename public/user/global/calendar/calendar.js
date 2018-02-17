@@ -2,7 +2,7 @@ $(document).ready(function(){
     // page is now ready, initialize the calendar...
     var calendarAddress = [];
 
-    validateLogin(function(isloggedin){
+    HelperFunctions.validateLogin(function(isloggedin){
         if(isloggedin && sessionStorage.user_settings && sessionStorage.user_settings != 'undefined'){
             calendarAddress = $.grep(JSON.parse(sessionStorage.user_settings), function(x){
                 return x.setting == 'Google Calendar Address';
@@ -48,7 +48,7 @@ $(document).ready(function(){
                     });
                 }
                 else{
-                  $.notify("Error getting API key " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+                  $.notify("Error getting API key " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
                 }
             });
         }

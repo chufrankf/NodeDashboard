@@ -33,7 +33,7 @@ function getStartupData(){
             fillFields(res.result)
         }
         else{
-          $.notify("Error getting requests: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+          $.notify("Error getting requests: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
         }
     });
 }
@@ -227,11 +227,11 @@ function updateStatus(dt, new_status, text){
                     fillFields(res.user_requests);
                 }
                 else{              
-                    $.notify("Action:" + text + " Error:" + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+                    $.notify("Action:" + text + " Error:" + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
                 }
             }
             else{
-              $.notify("Action:" + text + " Error:" + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+              $.notify("Action:" + text + " Error:" + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
             }
         });
     }

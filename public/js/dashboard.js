@@ -45,7 +45,7 @@ function load_edit_modals(){
 }
 
 function setDashboardID(){
-  var params = getURLSearchParams();
+  var params = HelperFunctions.getURLSearchParams();
   var id = params.id;
   if(id && parseInt(id) > 0){
     dashboard_id = parseInt(id);
@@ -58,7 +58,7 @@ function setDashboardID(){
 }
 
 function fill_dashboard(){
-  validateLogin(function(isloggedin){
+  HelperFunctions.validateLogin(function(isloggedin){
     if(isloggedin){
       var values = {dash_id: dashboard_id};
 
@@ -86,7 +86,7 @@ function fill_dashboard(){
           $.notify("Dashboard Loaded",  {position: 'bottom left', className: 'success'});
         }
         else{
-          $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+          $.notify("Error: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
         }
       });
     }
@@ -124,7 +124,7 @@ $('#dashboard-add-img').click(function(event) {
     indexes.push(parseInt($(this).data('gs-id')));
   });
 
-  add_element(0, 0, 2, 2, true, null, null, null, null, getNextGridIndex(indexes), null);
+  add_element(0, 0, 2, 2, true, null, null, null, null, HelperFunctions.getNextGridIndex(indexes), null);
 });
 
 //Click delete widget
@@ -209,7 +209,7 @@ function save_element(){
     }
   });
 
-  validateLogin(function(isloggedin){
+  HelperFunctions.validateLogin(function(isloggedin){
     if(isloggedin){
       //send the element to the database
       api.ajax_dashbox_update(values, function(res){
@@ -217,7 +217,7 @@ function save_element(){
           $.notify("Dashboard Saved", {position: 'bottom left', className: 'success'});
         }
         else{
-          $.notify("Error: " + getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+          $.notify("Error: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
         }
       });
     }
@@ -255,10 +255,10 @@ function add_element(x, y, width, height, autoPosition, minWidth, maxWidth, minH
 ******/
 
 function update_widgetsize(widget, values){
-  if(!isNullOrUndefined(values.box_type)){
+  if(!HelperFunctions.isNullOrUndefined(values.box_type)){
     var grid = $('.grid-stack').data('gridstack');
     var size = getContentData(values.box_type).dimensions;
-    if(!isNullOrUndefined(size))
+    if(!HelperFunctions.isNullOrUndefined(size))
       grid.update($('#edit_modal').data('trigger'),null,null,size.width,size.height);
   }
 }
@@ -270,7 +270,7 @@ function update_widgethtml(widget, values){
   });
 
   //Update contents
-  if(!isNullOrUndefined(getContentData(values.box_type).content)){
+  if(!HelperFunctions.isNullOrUndefined(getContentData(values.box_type).content)){
     getContentData(values.box_type).content(widget, values);
   }
 }

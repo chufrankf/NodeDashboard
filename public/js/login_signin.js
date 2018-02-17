@@ -50,11 +50,11 @@ $('#register-form').submit(function(e){
 
     api.ajax_user_add(values, function(res){
         if(res.success){
-            saveToBrowser(res.result, values.user_id, res.user_settings);
+            HelperFunctions.saveToBrowser(res.result, values.user_id, res.user_settings);
             document.location.href = '/';
         }
         else{
-            $('#register-submit').notify(getErrorMessage(res.error.code), {position: 'right', className:'error' });
+            $('#register-submit').notify(HelperFunctions.getErrorMessage(res.error.code), {position: 'right', className:'error' });
         }
     });
 });
@@ -74,15 +74,15 @@ $('#login-form').submit(function(e){
     api.ajax_user_login(values, function(res){
         if(res.success){
             if(res.result && values.user_id){
-                saveToBrowser(res.result, values.user_id, res.user_settings);
+                HelperFunctions.saveToBrowser(res.result, values.user_id, res.user_settings);
                 document.location.href = '/';
             }
             else{
-                $('#login-submit').notify(getErrorMessage('INV_USR_PASS'), {position: 'right', className: 'error'});
+                $('#login-submit').notify(HelperFunctions.getErrorMessage('INV_USR_PASS'), {position: 'right', className: 'error'});
             }
         }
         else{
-            $('#login-submit').notify(getErrorMessage(res.error.code), {position: 'right', className: 'error'});
+            $('#login-submit').notify(HelperFunctions.getErrorMessage(res.error.code), {position: 'right', className: 'error'});
         }
     });
 });
