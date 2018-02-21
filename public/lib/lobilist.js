@@ -604,16 +604,12 @@ $(function () {
                 'class': 'btn btn-default btn-xs',
                 html: '<i class="fa fa-times" aria-hidden="true"></i>'
             });
-            $btn.click(me._onRemoveListClick);
+            $btn.click(function(){
+                me._triggerEvent('beforeListRemove', [me]);
+                me.remove();
+                me._triggerEvent('afterListRemove', [me]);
+            });
             return $btn;
-        },
-
-        _onRemoveListClick: function () {
-			var me = this;
-            me._triggerEvent('beforeListRemove', [me]);
-            me.remove();
-            me._triggerEvent('afterListRemove', [me]);
-            return me;
         },
 
         _createFinishTitleEditing: function () {

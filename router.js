@@ -57,15 +57,12 @@ module.exports = function(app){
     app.post('/api/requests/updatestatus', auth.verifyToken, user_requests.updateStatus);
 
     //Todolist Items
-    var todolist_items = require('./controllers/todolist_items');
-    app.get('/api/todolist/items/get', auth.verifyToken, todolist_items.getByUser);
-    app.post('/api/todolist/items/update', auth.verifyToken, todolist_items.updateItem);
-    app.post('/api/todolist/items/insert', auth.verifyToken, todolist_items.insertNewItem);
-
-    //Todolist Columns
-    var todolist_columns = require('./controllers/todolist_columns');
-    app.get('/api/todolist/columns/get', auth.verifyToken, todolist_columns.findByUser);
-    app.post('/api/todolist/columns/update', auth.verifyToken, todolist_columns.add);
+    var todolist = require('./controllers/todolist');
+    app.get('/api/todolist/get', auth.verifyToken, todolist.getByUser);
+    app.post('/api/todolist/items/update', auth.verifyToken, todolist.updateItem);
+    app.post('/api/todolist/items/insert', auth.verifyToken, todolist.addItem);
+    app.post('/api/todolist/columns/update', auth.verifyToken, todolist.updateColumns);
+    app.post('/api/todolist/columns/updatesettings', auth.verifyToken, todolist.updateColumnSettings);
 
     //Add additional controllers here
 

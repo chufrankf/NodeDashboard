@@ -67,6 +67,9 @@ var mLaverna = {
    ,href: null
    ,dimensions: {width: 8, height: 20}
    ,description: 'Laverna is a platform to save notes to a dropbox. If you want to use its syncing ability go to Settings -> Sync -> Select Dropbox and add your Dropbox APP Key. For more information about Laverna please see their github at: https://github.com/Laverna/laverna'
+   ,fields: [
+        {id: 0, db: 'field01', type:'text', name:'html', name_class:'col-md-8 form-control', label:'Dropbox APP Key:', label_class:'col-md-3 left-align'}
+    ]
    ,content: function(widget, values){
         widget.html('<object data="https://laverna.cc/app/" class="embedded-webpage"></object>');
    }

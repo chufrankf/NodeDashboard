@@ -135,10 +135,12 @@ CREATE TABLE IF NOT EXISTS code_description (
 */
 
 CREATE TABLE IF NOT EXISTS todolist_columns (
- stackrank INT NOT NULL
+ id INT NOT NULL AUTO_INCREMENT
+,stackrank INT NOT NULL
 ,user_id VARCHAR(30) NOT NULL
 ,column_name VARCHAR(255) NULL
-,PRIMARY KEY (user_id, stackrank)
+,color INT NULL
+,PRIMARY KEY (id)
 );
 
 /*
@@ -157,7 +159,7 @@ CREATE TABLE IF NOT EXISTS todolist_items (
  id INT NOT NULL AUTO_INCREMENT
 ,user_id VARCHAR(30) NOT NULL
 ,date VARCHAR(30) NOT NULL
-,column_name VARCHAR(255) NULL
+,col_id VARCHAR(255) NULL
 ,swimlane VARCHAR(255) NULL
 ,title VARCHAR(255) NULL
 ,description VARCHAR(255) NULL

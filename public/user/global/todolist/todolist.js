@@ -1,21 +1,28 @@
 $(document).ready(function(){
+
+    //Get database data
+    var data = 
+    [
+        {
+            title: 'TODO',
+            defaultStyle: 'lobilist-info',
+            items: [
+                {
+                    title: 'Floor cool cinders',
+                    description: 'Thunder fulfilled travellers folly, wading, lake.',
+                    dueDate: '2015-01-31'
+                }
+            ]
+        }
+    ]
+})
+
+function fillLobilist(data){
     $('#lobilist-todolist').lobiList({
-        lists: [
-            {
-                title: 'TODO',
-                defaultStyle: 'lobilist-info',
-                items: [
-                    {
-                        title: 'Floor cool cinders',
-                        description: 'Thunder fulfilled travellers folly, wading, lake.',
-                        dueDate: '2015-01-31'
-                    }
-                ]
-            }
-        ],
+        lists: data,
         titleChange: updateToDoListColumns,
         afterListAdd: updateToDoListColumns,
-        afterListRemove: removeColumns,
+        afterListRemove: updateToDoListColumns,
         afterListReorder: updateToDoListColumns,
         afterMarkAsDone: updateToDoListItem,
         afterMarkAsUndone: updateToDoListItem,
@@ -24,7 +31,9 @@ $(document).ready(function(){
         afterItemDelete: updateToDoListItem,
         afterItemReorder: updateToDoListItem
     });
-})
+}
+
+
 function updateColumnNameChange(list, item){
     console.log(list);
     console.log(item);
@@ -38,10 +47,6 @@ function insertNewToDoListItem(list, item){
     console.log(item);
 }
 function updateToDoListItem(list, item){
-    console.log(list);
-    console.log(item);
-}
-function removeColumns(list, item){
     console.log(list);
     console.log(item);
 }
