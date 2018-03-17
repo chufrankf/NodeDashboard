@@ -8,9 +8,51 @@ exports.getByUser = function(req, res){
     params.user_id = req.user_id;
 
     mToDoList.selectToDoListItems(params, function(item_result){
-        mToDoListColumns.selectToDoListColumns(params, function(col_result){
-            res.send({columns: col_result, items: item_result});
-        });
+        if(item_result.success){
+            mToDoListColumns.selectToDoListColumns(params, function(col_result){
+                if(col_result.success){
+                    
+                    //Parse into Lobilist JSON format
+                    var data = [];
+                    col_result.result.forEach(x => {
+                        var col = {};
+                        var items = [];
+                        col.title = x.column_name;
+                        col.defaultStyle = 'lobilist-info';
+        
+                        item_result.result.forEach(y => {
+                            if(y.col_id == x.id){
+                                var item = {};
+                                item.title = y.title;
+                                item.description = y.description;
+                                item.dueDate = y.date;
+                                items.push(item);
+                            }
+                        });
+
+                        col.items = items;
+                        data.push(col);
+                    });
+
+                    //Send the result and JSON
+                    res.send(
+                        {
+                            success: true, 
+                            result: {
+                                columns: col_result.result, 
+                                items: item_result.result
+                            },
+                            lobilist: data
+                        });
+                }
+                else{
+                    res.send(col_result);
+                }
+            });
+        }
+        else{
+            res.send(item_result);
+        }
     });
 }
 

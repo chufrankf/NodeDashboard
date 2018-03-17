@@ -52,14 +52,13 @@ var api = {
         });
     },
 
-    ajax_todolist_get : function(values, callback){
+    ajax_todolist_get : function(callback){
         $.ajax({
             type: 'GET',
-            url: '/api/requests/get',
+            url: '/api/todolist/get',
             headers: { 'x-access-token' : sessionStorage.access_token},
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
-            data: values,
             success: callback
         });
     },

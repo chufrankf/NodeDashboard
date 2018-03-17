@@ -1,20 +1,14 @@
 $(document).ready(function(){
 
-    //Get database data
-    var data = 
-    [
-        {
-            title: 'TODO',
-            defaultStyle: 'lobilist-info',
-            items: [
-                {
-                    title: 'Floor cool cinders',
-                    description: 'Thunder fulfilled travellers folly, wading, lake.',
-                    dueDate: '2015-01-31'
-                }
-            ]
+    api.ajax_todolist_get(function(res){
+        if(res.success){
+            console.log(res.lobilist);
+            fillLobilist(res.lobilist);
         }
-    ]
+        else{
+            $.notify("Error getting to do list items: " + HelperFunctions.getErrorMessage(res.error.code), {position: 'bottom left', className: 'error'});
+        }
+    });
 })
 
 function fillLobilist(data){
@@ -30,7 +24,7 @@ function fillLobilist(data){
         afterItemUpdate: updateToDoListItem,
         afterItemDelete: updateToDoListItem,
         afterItemReorder: updateToDoListItem
-    });
+    }).data('lobiList');
 }
 
 
