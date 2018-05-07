@@ -1,7 +1,10 @@
 div.wrapper {
     background-color: #ffffff;
-    padding: 10px;
     font-size: 11px; 
+}
+
+#req_table_wrapper {
+    padding: 2px 5px 2px 5px;
 }
 
 /* Table */
