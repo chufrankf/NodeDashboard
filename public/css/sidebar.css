@@ -3,12 +3,12 @@
     z-index: 100;
     position: fixed;
     left: 150px;
-    top: 55px;
+    top: 30px;
     width: 0;
     bottom: 0;
     margin-left: -150px;
     overflow-y: auto;
-    background: #113159;
+    background: #212529;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -80,6 +80,7 @@ Dashboard Link Animations
     line-height: 20px;
     display: inline-block;
     width: 100%;
+    font-size: 1rem;
 }
 
 .sidebar-body li:before {

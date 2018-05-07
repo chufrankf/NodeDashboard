@@ -4,7 +4,7 @@ body {
 
 /* Dashboard */
 #page-content-wrapper{
-  margin-top: 60px;
+  margin-top: 35px;
   padding: 5px;
 }
 
@@ -19,6 +19,9 @@ body {
 }
 
 .item {
+  background: #F2F9FF;
+}
+.item.disabled{
   background: #8CB5E5;
 }
 .item-icon {
@@ -53,12 +56,20 @@ object.embedded-webpage {
 /*Override Gridstack CSS*/
 .grid-stack .grid-stack-placeholder > .placeholder-content {
   border: 1px solid black;
-  background: #C1CFE0
 }
 
 .grid-stack-item-content.disabled {
   pointer-events: none;
   opacity: 0.4;
+}
+
+.grid-stack-item-content.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.grid-stack-item {
+  background-color: #F2F9FF;
 }
 
 /*Dashboard Buttons*/
