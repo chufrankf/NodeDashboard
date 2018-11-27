@@ -1,7 +1,5 @@
 # NodeDashboard
 
-See the project located here: [dash.jibaga.com](https://dash.jibaga.com)
-
 The purpose of this project is to create a home page that I can use for whatever I need at the time. Notifications, Emails, Calendars, Events, Requests, and things to tackle are what I need to be able to see and keep track of on a daily basis. I want to make this project to make it easy to complete these things. My ultimate goal at the end is to push this onto a touch screen monitor in a room, for easy organization of daily tasks and keep monitor of the things that I care about. 
 
 **MIT License**
